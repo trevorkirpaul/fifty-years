@@ -1,13 +1,25 @@
-import * as React from "react";
+import React from "react";
 
 import Tile from "../Tile";
-import { LandProps } from "./types";
 
-const Land = (props: LandProps) => {
+import { Wrapper } from "./styles";
+import { LandProps, LandState } from "./types";
+
+const Land = ({ tiles, handleBuild }: LandProps) => {
   return (
-    <div>
-      <Tile type="barracksk" />
-    </div>
+    <Wrapper>
+      {tiles &&
+        tiles.map((t: { id: string; type: string }) => {
+          return (
+            <Tile
+              key={t.id}
+              type={t.type}
+              id={t.id}
+              handleBuild={handleBuild}
+            />
+          );
+        })}
+    </Wrapper>
   );
 };
 

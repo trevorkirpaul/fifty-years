@@ -12,6 +12,10 @@ interface AppState {
   citizens: number;
   research: number;
   divinity: number;
+  tiles: Array<{
+    type: string
+    id: string,
+  }>;
 }
 
 interface AppProps {}

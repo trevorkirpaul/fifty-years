@@ -16,8 +16,10 @@ This is a game heavily inspired by [Fifty Years](https://echa.itch.io/) created 
 - [x] codebase structure / scaffold
 - [ ] styling
 - [ ] create Tile and Land logic
+  - [ ] build logic to handle selecting type of building to build on Tile
 
 ### Components ToDo
 
 - [x] Button
 - [x] Field (Input, text input)
+- [ ] Modal

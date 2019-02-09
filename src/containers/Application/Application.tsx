@@ -1,5 +1,6 @@
 import React from "react";
 
+import Land from "../../components/Land";
 import MainMenu from "../../components/MainMenu";
 import ScoreBoard from "../../components/ScoreBoard";
 
@@ -24,6 +25,33 @@ class Application extends React.Component<AppProps, AppState> {
       houses: 0,
       soldiers: 0,
       citizens: 0,
+
+      tiles: [
+        {
+          type: "empty",
+          id: "1234",
+        },
+        {
+          type: "empty",
+          id: "1235",
+        },
+        {
+          type: "empty",
+          id: "1236",
+        },
+        {
+          type: "empty",
+          id: "1237",
+        },
+        {
+          type: "empty",
+          id: "1238",
+        },
+        {
+          type: "empty",
+          id: "1239",
+        },
+      ],
     };
   }
 
@@ -43,6 +71,14 @@ class Application extends React.Component<AppProps, AppState> {
     });
   }
 
+  public handleBuild = () => {
+    const { gold } = this.state;
+
+    if (gold <= 0) {
+      return window.alert("NO GOLD!");
+    }
+  }
+
   public render() {
     const {
       playerName,
@@ -56,6 +92,7 @@ class Application extends React.Component<AppProps, AppState> {
       houses,
       soldiers,
       citizens,
+      tiles,
     } = this.state;
 
     if (!playerName || !playerId) {
@@ -82,6 +119,8 @@ class Application extends React.Component<AppProps, AppState> {
           soldiers={soldiers}
           citizens={citizens}
         />
+
+        <Land tiles={tiles} handleBuild={this.handleBuild} />
       </Wrapper>
     );
   }

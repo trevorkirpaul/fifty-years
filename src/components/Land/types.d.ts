@@ -1,3 +1,12 @@
-interface LandProps {}
+interface LandProps {
+  tiles: Array<{
+    type: string
+    id: string,
+  }>;
 
-export { LandProps };
+  handleBuild: () => any;
+}
+
+interface LandState {}
+
+export { LandProps, LandState };
