@@ -12,5 +12,7 @@ This is a game heavily inspired by [Fifty Years](https://echa.itch.io/) created 
 
 ## ToDo
 
-- [ ] configure TypeScript
-- [ ] codebase structure / scaffold
+- [x] configure TypeScript
+- [x] codebase structure / scaffold
+- [ ] styling
+- [ ] create Tile and Land logic
