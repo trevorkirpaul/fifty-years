@@ -1,10 +1,10 @@
 interface LandProps {
   tiles: Array<{
-    type: string
-    id: string,
+    type: string;
+    id: string;
   }>;
 
-  handleBuild: () => any;
+  handleOpenBuildModal: () => any;
 }
 
 interface LandState {}

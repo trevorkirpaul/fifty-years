@@ -5,10 +5,10 @@ import Button from "../Button";
 import { Text, Wrapper } from "./styles";
 import { TileProps } from "./types";
 
-const Tile = ({ type, handleBuild }: TileProps) => (
+const Tile = ({ type, handleOpenBuildModal }: TileProps) => (
   <Wrapper>
     <Text>{type}</Text>
-    <Button onClick={handleBuild} disabled={false} loading={false}>
+    <Button onClick={handleOpenBuildModal} disabled={false} loading={false}>
       Build
     </Button>
   </Wrapper>

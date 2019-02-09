@@ -1,7 +1,7 @@
 interface TileProps {
   type: string;
   id: string;
-  handleBuild: () => any;
+  handleOpenBuildModal: () => any;
 }
 
 export { TileProps };

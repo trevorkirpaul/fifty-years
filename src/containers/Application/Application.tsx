@@ -12,16 +12,27 @@ class Application extends React.Component<AppProps, AppState> {
     super(props);
 
     this.state = {
+      /**
+       * UI state
+       */
+
+      buildModalOpen: false,
+
+      /**
+       * Game logic related state
+       */
       playerName: "Trevor",
       playerId: "sdfsdf",
       difficulty: 0,
       currentYear: 0,
       gold: 0,
       food: 0,
+      wood: 0,
       research: 0,
       divinity: 0,
       fields: 0,
       barracks: 0,
+      logHouses: 0,
       houses: 0,
       soldiers: 0,
       citizens: 0,
@@ -60,9 +71,9 @@ class Application extends React.Component<AppProps, AppState> {
     playerId,
     difficulty,
   }: {
-    playerName: string
-    playerId: string
-    difficulty: number,
+    playerName: string;
+    playerId: string;
+    difficulty: number;
   }) => {
     return this.setState({
       playerName,
@@ -71,7 +82,25 @@ class Application extends React.Component<AppProps, AppState> {
     });
   }
 
-  public handleBuild = () => {
+  public handleOpenBuildModal = () => {};
+
+  /**
+   * This method comes from the Application container
+   * and will handle all of the logic when building
+   * or expanding on an empty Tile.
+   *
+   * @options is an object which contains:
+   *
+   * `tileId`: string represeting the Tile being worked on
+   *
+   * `action`: string representing how we are working/interacting
+   * with the Tile. This can be "build" for example
+   *
+   * `buildingType`: optional string which is used when the `action`
+   * is equal to "build" and will determine which type of building
+   * replaces the empty Tile
+   */
+  public handleBuild = (options: { tileId: string }) => {
     const { gold } = this.state;
 
     if (gold <= 0) {
@@ -120,7 +149,7 @@ class Application extends React.Component<AppProps, AppState> {
           citizens={citizens}
         />
 
-        <Land tiles={tiles} handleBuild={this.handleBuild} />
+        <Land tiles={tiles} handleOpenBuildModal={this.handleOpenBuildModal} />
       </Wrapper>
     );
   }
