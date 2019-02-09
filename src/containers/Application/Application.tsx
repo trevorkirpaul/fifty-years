@@ -3,6 +3,7 @@ import React from "react";
 import Land from "../../components/Land";
 import MainMenu from "../../components/MainMenu";
 import ScoreBoard from "../../components/ScoreBoard";
+import BuildModal from "../BuildModal";
 
 import { Wrapper } from "./styles";
 import { AppProps, AppState } from "./types";
@@ -82,7 +83,12 @@ class Application extends React.Component<AppProps, AppState> {
     });
   }
 
-  public handleOpenBuildModal = () => {};
+  public handleOpenBuildModal = () => {
+    return this.setState({ buildModalOpen: true });
+  }
+  public handleCloseBuildModal = () => {
+    return this.setState({ buildModalOpen: false });
+  }
 
   /**
    * This method comes from the Application container
@@ -110,12 +116,14 @@ class Application extends React.Component<AppProps, AppState> {
 
   public render() {
     const {
+      buildModalOpen,
       playerName,
       playerId,
       difficulty,
       currentYear,
       gold,
       food,
+      wood,
       fields,
       barracks,
       houses,
@@ -137,6 +145,14 @@ class Application extends React.Component<AppProps, AppState> {
 
     return (
       <Wrapper>
+        <BuildModal
+          buildModalOpen={buildModalOpen}
+          closeModal={this.handleCloseBuildModal}
+          gold={gold}
+          food={food}
+          wood={wood}
+        />
+
         <ScoreBoard
           playerName={playerName}
           currentYear={currentYear}
