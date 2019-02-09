@@ -2,7 +2,9 @@ import * as React from "react";
 import uuid from "uuid";
 
 import Button from "../Button";
+import Field from "../Field";
 
+import { Title, Wrapper } from "./styles";
 import { MainMenuProps, MainMenuState } from "./types";
 
 class MainMenu extends React.Component<MainMenuProps, MainMenuState> {
@@ -39,16 +41,29 @@ class MainMenu extends React.Component<MainMenuProps, MainMenuState> {
   public render() {
     const { playerName, playerId } = this.state;
     return (
-      <div>
-        <input
+      <Wrapper>
+        <Title>Fifty Years</Title>
+        <Field
           type="text"
           name="playerName"
           value={playerName}
           onChange={this.handleOnChangePlayerName}
+          placeholder="enter player name..."
+          disabled={false}
         />
+
+        <Field
+          type="text"
+          name="playerId"
+          value={playerId}
+          placeholder="..."
+          disabled={true}
+          onChange={() => {}}
+        />
+
         <Button
           onClick={this.generatePlayerId}
-          disabled={!!playerId}
+          disabled={false}
           loading={false}
         >
           Generate Player ID
@@ -56,7 +71,7 @@ class MainMenu extends React.Component<MainMenuProps, MainMenuState> {
         <Button onClick={this.handleStartGame} disabled={false} loading={false}>
           Start
         </Button>
-      </div>
+      </Wrapper>
     );
   }
 }
