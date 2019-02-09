@@ -1,0 +1,3 @@
+interface LandProps {}
+
+export { LandProps };
