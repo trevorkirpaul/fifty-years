@@ -1,19 +1,17 @@
+import { string } from "prop-types";
+
 interface MainMenuProps {
   playerName: string;
+  playerId: string;
   difficulty: number;
   handleStartGame: (
-    {
-      playerName,
-      difficulty,
-    }: {
-      playerName: string
-      difficulty: number,
-    },
-  ) => void;
+    { playerName: string, playerId: string, difficulty: number },
+  ) => any;
 }
 
 interface MainMenuState {
   playerName: string;
+  playerId: string;
   difficulty: number;
 }
 

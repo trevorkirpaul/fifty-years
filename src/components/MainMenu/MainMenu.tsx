@@ -1,4 +1,7 @@
 import * as React from "react";
+import uuid from "uuid";
+
+import Button from "../Button";
 
 import { MainMenuProps, MainMenuState } from "./types";
 
@@ -8,6 +11,7 @@ class MainMenu extends React.Component<MainMenuProps, MainMenuState> {
 
     this.state = {
       playerName: "",
+      playerId: "",
       difficulty: 0,
     };
   }
@@ -17,19 +21,23 @@ class MainMenu extends React.Component<MainMenuProps, MainMenuState> {
     return this.setState(() => ({ playerName: value }));
   }
 
+  public generatePlayerId = () => {
+    return this.setState({ playerId: uuid() });
+  }
+
   public handleStartGame = () => {
-    const { playerName, difficulty } = this.state;
+    const { playerName, playerId, difficulty } = this.state;
     const { handleStartGame } = this.props;
 
     if (!playerName) {
       return null;
     }
 
-    return handleStartGame({ playerName, difficulty });
+    return handleStartGame({ playerName, playerId, difficulty });
   }
 
   public render() {
-    const { playerName } = this.state;
+    const { playerName, playerId } = this.state;
     return (
       <div>
         <input
@@ -38,7 +46,16 @@ class MainMenu extends React.Component<MainMenuProps, MainMenuState> {
           value={playerName}
           onChange={this.handleOnChangePlayerName}
         />
-        <button onClick={this.handleStartGame}>Start</button>
+        <Button
+          onClick={this.generatePlayerId}
+          disabled={!!playerId}
+          loading={false}
+        >
+          Generate Player ID
+        </Button>
+        <Button onClick={this.handleStartGame} disabled={false} loading={false}>
+          Start
+        </Button>
       </div>
     );
   }
