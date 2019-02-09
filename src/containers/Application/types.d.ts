@@ -9,7 +9,7 @@ interface AppState {
   barracks: number;
   soldiers: number;
   houses: number;
-  citizen: number;
+  citizens: number;
   research: number;
   divinity: number;
 }

@@ -19,5 +19,5 @@ This is a game heavily inspired by [Fifty Years](https://echa.itch.io/) created 
 
 ### Components ToDo
 
-- [ ] Button
-- [ ] Field (Input, text input)
+- [x] Button
+- [x] Field (Input, text input)

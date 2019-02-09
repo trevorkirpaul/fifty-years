@@ -1,8 +1,9 @@
 import React from "react";
 
 import MainMenu from "../../components/MainMenu";
-import TitlePanel from "../../components/TitlePanel";
+import ScoreBoard from "../../components/ScoreBoard";
 
+import { Wrapper } from "./styles";
 import { AppProps, AppState } from "./types";
 
 class Application extends React.Component<AppProps, AppState> {
@@ -10,8 +11,8 @@ class Application extends React.Component<AppProps, AppState> {
     super(props);
 
     this.state = {
-      playerName: "",
-      playerId: "",
+      playerName: "Trevor",
+      playerId: "sdfsdf",
       difficulty: 0,
       currentYear: 0,
       gold: 0,
@@ -22,7 +23,7 @@ class Application extends React.Component<AppProps, AppState> {
       barracks: 0,
       houses: 0,
       soldiers: 0,
-      citizen: 0,
+      citizens: 0,
     };
   }
 
@@ -43,7 +44,19 @@ class Application extends React.Component<AppProps, AppState> {
   }
 
   public render() {
-    const { playerName, playerId, difficulty } = this.state;
+    const {
+      playerName,
+      playerId,
+      difficulty,
+      currentYear,
+      gold,
+      food,
+      fields,
+      barracks,
+      houses,
+      soldiers,
+      citizens,
+    } = this.state;
 
     if (!playerName || !playerId) {
       return (
@@ -57,9 +70,19 @@ class Application extends React.Component<AppProps, AppState> {
     }
 
     return (
-      <div>
-        <TitlePanel />
-      </div>
+      <Wrapper>
+        <ScoreBoard
+          playerName={playerName}
+          currentYear={currentYear}
+          gold={gold}
+          food={food}
+          fields={fields}
+          barracks={barracks}
+          houses={houses}
+          soldiers={soldiers}
+          citizens={citizens}
+        />
+      </Wrapper>
     );
   }
 }
