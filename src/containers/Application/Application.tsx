@@ -207,7 +207,13 @@ class Application extends React.Component<AppProps, AppState> {
           citizens={citizens}
         />
 
-        <Land tiles={tiles} handleOpenBuildModal={this.handleOpenBuildModal} />
+        <Land
+          tiles={tiles}
+          handleOpenBuildModal={this.handleOpenBuildModal}
+          gold={gold}
+          food={food}
+          wood={wood}
+        />
       </Wrapper>
     );
   }
