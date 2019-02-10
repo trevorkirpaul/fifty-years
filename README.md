@@ -15,11 +15,13 @@ This is a game heavily inspired by [Fifty Years](https://echa.itch.io/) created 
 - [x] configure TypeScript
 - [x] codebase structure / scaffold
 - [ ] styling
-- [ ] create Tile and Land logic
-  - [ ] build logic to handle selecting type of building to build on Tile
+- [x] create Tile and Land logic
+  - [x] build logic to handle selecting type of building to build on Tile
+  - [ ] add logic for built tiles
 
 ### Components ToDo
 
 - [x] Button
 - [x] Field (Input, text input)
-- [ ] Modal
+- [x] Modal
+- [x] Select
