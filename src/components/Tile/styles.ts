@@ -13,8 +13,26 @@ const Wrapper = styled.div`
   margin-bottom: 15px;
 `;
 
+const FieldTileWrapper = styled(Wrapper)`
+  background: #c5e1a5;
+`;
+
+const BarracksTileWrapper = styled(Wrapper)`
+  background: #a1887f;
+`;
+
+const HouseTileWrapper = styled(Wrapper)`
+  background: #b3e5fc;
+`;
+
 const Text = styled.span`
   font-family: sans-serif;
 `;
 
-export { Wrapper, Text };
+export {
+  Wrapper,
+  Text,
+  FieldTileWrapper,
+  BarracksTileWrapper,
+  HouseTileWrapper,
+};
