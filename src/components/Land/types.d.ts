@@ -4,7 +4,7 @@ interface LandProps {
     id: string;
   }>;
 
-  handleOpenBuildModal: () => any;
+  handleOpenBuildModal: (id: string) => any;
 }
 
 interface LandState {}

@@ -46,6 +46,25 @@ class BuildModal extends React.Component<BuildModalProps, BuildModalState> {
     return this.setState({ selectedOption: option });
   }
 
+  public startBuild = () => {
+    if (!this.state.selectedOption) {
+      return null;
+    }
+
+    /**
+     * send build options to Application
+     * and clear selected building type
+     */
+
+    this.props.handleBuild({
+      tileId: this.props.currentTileId,
+      buildingType: this.state.selectedOption.value,
+      action: "build",
+    });
+
+    return this.setState({ selectedOption: "" });
+  }
+
   public render() {
     const { buildModalOpen, closeModal, gold, food, wood } = this.props;
     const { selectedOption } = this.state;
@@ -81,8 +100,10 @@ class BuildModal extends React.Component<BuildModalProps, BuildModalState> {
           </Button>
 
           <Button
-            onClick={() => {}}
-            disabled={optionsPlayerCanAfford.length === 0}
+            onClick={this.startBuild}
+            disabled={
+              optionsPlayerCanAfford.length === 0 || !this.state.selectedOption
+            }
             loading={false}
           >
             Start Building

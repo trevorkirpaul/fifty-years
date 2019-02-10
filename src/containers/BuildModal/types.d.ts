@@ -1,9 +1,22 @@
 interface BuildModalProps {
   buildModalOpen: boolean;
   closeModal: () => any;
+  handleBuild: (
+    options: {
+      tileId: string;
+      action: string;
+      buildingType: string;
+    },
+  ) => any;
   gold: number;
   food: number;
   wood: number;
+  /**
+   * `currentTileId` is the Tile from
+   * which the modal was opened and the Tile
+   * we'll be building on
+   */
+  currentTileId: string;
 }
 
 interface BuildModalState {

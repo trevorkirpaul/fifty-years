@@ -26,9 +26,9 @@ class Application extends React.Component<AppProps, AppState> {
       playerId: "sdfsdf",
       difficulty: 0,
       currentYear: 0,
-      gold: 0,
-      food: 0,
-      wood: 0,
+      gold: 100,
+      food: 100,
+      wood: 100,
       research: 0,
       divinity: 0,
       fields: 0,
@@ -38,30 +38,45 @@ class Application extends React.Component<AppProps, AppState> {
       soldiers: 0,
       citizens: 0,
 
+      currentTileId: "",
+
       tiles: [
         {
           type: "empty",
-          id: "1234",
+          id: "1",
         },
         {
           type: "empty",
-          id: "1235",
+          id: "2",
         },
         {
           type: "empty",
-          id: "1236",
+          id: "3",
         },
         {
           type: "empty",
-          id: "1237",
+          id: "4",
         },
         {
           type: "empty",
-          id: "1238",
+          id: "5",
         },
         {
           type: "empty",
-          id: "1239",
+          id: "6",
+        },
+
+        {
+          type: "empty",
+          id: "7",
+        },
+        {
+          type: "empty",
+          id: "8",
+        },
+        {
+          type: "empty",
+          id: "9",
         },
       ],
     };
@@ -83,8 +98,8 @@ class Application extends React.Component<AppProps, AppState> {
     });
   }
 
-  public handleOpenBuildModal = () => {
-    return this.setState({ buildModalOpen: true });
+  public handleOpenBuildModal = (id: string) => {
+    return this.setState({ buildModalOpen: true, currentTileId: id });
   }
   public handleCloseBuildModal = () => {
     return this.setState({ buildModalOpen: false });
@@ -106,12 +121,36 @@ class Application extends React.Component<AppProps, AppState> {
    * is equal to "build" and will determine which type of building
    * replaces the empty Tile
    */
-  public handleBuild = (options: { tileId: string }) => {
+  public handleBuild = (options: {
+    tileId: string;
+    action: string;
+    buildingType: string;
+  }) => {
     const { gold } = this.state;
 
     if (gold <= 0) {
       return window.alert("NO GOLD!");
     }
+
+    return this.setState((prev) => ({
+      buildModalOpen: false,
+      tiles: prev.tiles.map((t) => {
+        /**
+         * find the tile by id and
+         * set it's building type
+         * to the one specified in
+         * the options supplied from the arg
+         */
+        if (t.id === options.tileId) {
+          return {
+            ...t,
+            type: options.buildingType,
+          };
+        }
+
+        return t;
+      }),
+    }));
   }
 
   public render() {
@@ -129,6 +168,7 @@ class Application extends React.Component<AppProps, AppState> {
       houses,
       soldiers,
       citizens,
+      currentTileId,
       tiles,
     } = this.state;
 
@@ -146,8 +186,10 @@ class Application extends React.Component<AppProps, AppState> {
     return (
       <Wrapper>
         <BuildModal
+          currentTileId={currentTileId}
           buildModalOpen={buildModalOpen}
           closeModal={this.handleCloseBuildModal}
+          handleBuild={this.handleBuild}
           gold={gold}
           food={food}
           wood={wood}

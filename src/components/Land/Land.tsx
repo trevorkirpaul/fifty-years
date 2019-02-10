@@ -3,7 +3,7 @@ import React from "react";
 import Tile from "../Tile";
 
 import { Wrapper } from "./styles";
-import { LandProps, LandState } from "./types";
+import { LandProps } from "./types";
 
 const Land = ({ tiles, handleOpenBuildModal }: LandProps) => {
   return (
@@ -15,7 +15,7 @@ const Land = ({ tiles, handleOpenBuildModal }: LandProps) => {
               key={t.id}
               type={t.type}
               id={t.id}
-              handleOpenBuildModal={handleOpenBuildModal}
+              handleOpenBuildModal={() => handleOpenBuildModal(t.id)}
             />
           );
         })}

@@ -96,6 +96,12 @@ interface AppState {
     type: string;
     id: string;
   }>;
+  /**
+   * When the modal is opened, `currentTileId`
+   * will refer to the Tile from which the BuildModal was
+   * opened
+   */
+  currentTileId: string;
 }
 
 interface AppProps {}
