@@ -1,4 +1,8 @@
 import React from "react";
+import { connect } from "react-redux";
+
+import { storeState } from "../../@redux/reducers/types";
+import { game as gameSelector } from "../../@redux/selectors";
 
 import Button from "../../components/Button";
 import Modal from "../../components/Modal";
@@ -66,7 +70,13 @@ class BuildModal extends React.Component<BuildModalProps, BuildModalState> {
   }
 
   public render() {
-    const { buildModalOpen, closeModal, gold, food, wood } = this.props;
+    const {
+      buildModalOpen,
+      closeModal,
+      data: {
+        game: { gold, food, wood },
+      },
+    } = this.props;
     const { selectedOption } = this.state;
 
     /**
@@ -113,4 +123,11 @@ class BuildModal extends React.Component<BuildModalProps, BuildModalState> {
     );
   }
 }
-export default BuildModal;
+
+const mapState = (state: storeState) => ({
+  data: {
+    game: gameSelector(state),
+  },
+});
+
+export default connect(mapState)(BuildModal);

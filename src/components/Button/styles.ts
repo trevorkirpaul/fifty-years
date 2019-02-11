@@ -1,5 +1,9 @@
 import styled from "styled-components";
 
+// interface styledButtonBaseTypes {
+//   onClick: any;
+// }
+
 const StyledButtonBase = styled.button`
   display: inline-block;
   padding: 10px 15px;

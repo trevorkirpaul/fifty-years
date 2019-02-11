@@ -1,11 +1,24 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
 
-import "./index.css";
+import configuredStored from "./@redux/store";
+
 import Application from "./containers/Application";
+import "./index.css";
 
 import * as serviceWorker from "./serviceWorker";
 
-ReactDOM.render(<Application />, document.getElementById("root"));
+const store = configuredStored();
+
+const Root = () => {
+  return (
+    <Provider store={store}>
+      <Application />
+    </Provider>
+  );
+};
+
+ReactDOM.render(<Root />, document.getElementById("root"));
 
 serviceWorker.unregister();

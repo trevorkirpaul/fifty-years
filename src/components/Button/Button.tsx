@@ -4,7 +4,11 @@ import { StyledButtonBase } from "./styles";
 import { ButtonProps } from "./types";
 
 const Button = (props: ButtonProps) => {
-  return <StyledButtonBase {...props}>{props.children}</StyledButtonBase>;
+  return (
+    <StyledButtonBase onClick={props.onClick}>
+      {props.children}
+    </StyledButtonBase>
+  );
 };
 
 export default Button;

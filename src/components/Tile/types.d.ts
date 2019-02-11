@@ -1,7 +1,7 @@
 interface TileProps {
   type: string;
   id: string;
-  handleOpenBuildModal: () => any;
+  handleOpenBuildModal: (id: string) => any;
   /**
    * Players current gold
    */

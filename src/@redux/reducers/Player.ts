@@ -1,21 +1,14 @@
 import { PLAYER_NAME } from "../constants/Player";
 
-interface initialStateTypes {
-  playerName: string;
-  playerId: string;
-}
+import { playerActionTypes } from "../actions/types";
+import { playerReducerTypes } from "./types";
 
-interface actionTypes {
-  type: string;
-  payload: object | string;
-}
-
-const initialState: initialStateTypes = {
+const initialState: playerReducerTypes = {
   playerName: "",
   playerId: "",
 };
 
-const PlayerReducer = (state = initialState, action: actionTypes) => {
+const PlayerReducer = (state = initialState, action: playerActionTypes) => {
   switch (action.type) {
     case PLAYER_NAME.SET:
       return {

@@ -1,3 +1,5 @@
+import { gameReducerTypes } from "../../@redux/reducers/types";
+
 interface BuildModalProps {
   buildModalOpen: boolean;
   closeModal: () => any;
@@ -8,9 +10,13 @@ interface BuildModalProps {
       buildingType: string;
     },
   ) => any;
-  gold: number;
-  food: number;
-  wood: number;
+
+  /**
+   * from redux
+   */
+  data: {
+    game: gameReducerTypes;
+  };
   /**
    * `currentTileId` is the Tile from
    * which the modal was opened and the Tile

@@ -1,12 +1,15 @@
 import { combineReducers } from "redux";
 
-import { NAME as playerName } from "../constants/Player";
+import gameReducer from "./Game";
 import playerReducer from "./Player";
+import tileReducer from "./Tile";
 
 import { storeState } from "./types";
 
 const rootReducer = combineReducers<storeState>({
-  [playerName]: playerReducer,
+  PLAYER: playerReducer,
+  GAME: gameReducer,
+  TILE: tileReducer,
 });
 
 export default rootReducer;

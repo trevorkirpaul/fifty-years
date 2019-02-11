@@ -1,6 +1,6 @@
 interface ButtonProps {
   children: React.ReactNode;
-  onClick: () => any;
+  onClick: any;
   disabled: boolean;
   loading: boolean;
 }

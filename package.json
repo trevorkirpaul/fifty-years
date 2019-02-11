@@ -8,6 +8,7 @@
     "@types/react": "^16.8.1",
     "@types/react-dom": "^16.0.11",
     "@types/react-modal": "^3.8.0",
+    "@types/react-redux": "^7.0.1",
     "@types/react-select": "^2.0.11",
     "@types/styled-components": "^4.1.8",
     "@types/uuid": "^3.4.4",
@@ -37,5 +38,8 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "redux-devtools-extension": "^2.13.8"
+  }
 }
