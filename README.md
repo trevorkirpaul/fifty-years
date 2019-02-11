@@ -18,6 +18,7 @@ This is a game heavily inspired by [Fifty Years](https://echa.itch.io/) created 
 - [x] create Tile and Land logic
   - [x] build logic to handle selecting type of building to build on Tile
   - [ ] add logic for built tiles
+- [ ] implement redux
 
 ### Components ToDo
 
