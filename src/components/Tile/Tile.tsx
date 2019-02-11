@@ -19,7 +19,14 @@ const EmptyTile = ({ type, handleOpenBuildModal }: TileProps) => (
   </Wrapper>
 );
 
-const Tile = ({ type, handleOpenBuildModal, id }: TileProps) => {
+const Tile = ({
+  type,
+  handleOpenBuildModal,
+  id,
+  gold,
+  food,
+  wood,
+}: TileProps) => {
   switch (type) {
     case "barracks":
       return (
@@ -27,6 +34,9 @@ const Tile = ({ type, handleOpenBuildModal, id }: TileProps) => {
           id={id}
           type={type}
           handleOpenBuildModal={handleOpenBuildModal}
+          gold={gold}
+          food={food}
+          wood={wood}
         />
       );
 
@@ -36,6 +46,9 @@ const Tile = ({ type, handleOpenBuildModal, id }: TileProps) => {
           id={id}
           type={type}
           handleOpenBuildModal={handleOpenBuildModal}
+          gold={gold}
+          food={food}
+          wood={wood}
         />
       );
 
@@ -45,6 +58,9 @@ const Tile = ({ type, handleOpenBuildModal, id }: TileProps) => {
           id={id}
           type={type}
           handleOpenBuildModal={handleOpenBuildModal}
+          gold={gold}
+          food={food}
+          wood={wood}
         />
       );
 
@@ -54,6 +70,9 @@ const Tile = ({ type, handleOpenBuildModal, id }: TileProps) => {
           id={id}
           type={type}
           handleOpenBuildModal={handleOpenBuildModal}
+          gold={gold}
+          food={food}
+          wood={wood}
         />
       );
   }

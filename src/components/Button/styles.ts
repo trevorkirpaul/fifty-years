@@ -8,6 +8,8 @@ const StyledButtonBase = styled.button`
   color: #f8f8f8;
   margin: 5px;
 
+  font-family: "Roboto", sans-serif;
+
   &:hover {
     cursor: pointer;
     color: palevioletred;

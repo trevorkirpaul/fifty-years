@@ -32,7 +32,7 @@ interface TextProps {
 const Text = styled.span`
   font-weight: 300;
   color: #f8f8f8;
-  font-family: sans-serif;
+  font-family: "Roboto", sans-serif;
 
   ${(props: TextProps) =>
     props.padBottom &&

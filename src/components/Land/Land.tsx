@@ -5,7 +5,7 @@ import Tile from "../Tile";
 import { Wrapper } from "./styles";
 import { LandProps } from "./types";
 
-const Land = ({ tiles, handleOpenBuildModal }: LandProps) => {
+const Land = ({ tiles, handleOpenBuildModal, gold, food, wood }: LandProps) => {
   return (
     <Wrapper>
       {tiles &&
@@ -16,6 +16,9 @@ const Land = ({ tiles, handleOpenBuildModal }: LandProps) => {
               type={t.type}
               id={t.id}
               handleOpenBuildModal={() => handleOpenBuildModal(t.id)}
+              gold={gold}
+              food={food}
+              wood={wood}
             />
           );
         })}
