@@ -13,10 +13,6 @@ interface MainMenuProps {
       ) => any;
     };
   };
-
-  handleStartGame: (
-    { playerName: string, playerId: string, difficulty: number },
-  ) => any;
 }
 
 interface MainMenuState {

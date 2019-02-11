@@ -78,12 +78,11 @@ class Application extends React.Component<AppProps, AppState> {
     const {
       data: {
         player: { playerId, playerName },
-        game: { difficulty },
       },
     } = this.props;
 
     if (!playerName || !playerId) {
-      return <MainMenu handleStartGame={this.handleStartGame} />;
+      return <MainMenu />;
     }
 
     return (
