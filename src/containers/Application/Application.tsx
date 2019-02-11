@@ -7,7 +7,7 @@ import {
   player as playerSelector,
 } from "../../@redux/selectors";
 
-import MainMenu from "../../components/MainMenu";
+import MainMenu from "../../containers/MainMenu";
 import ScoreBoard from "../../containers/ScoreBoard";
 import BuildModal from "../BuildModal";
 import Land from "../Land";
@@ -83,14 +83,7 @@ class Application extends React.Component<AppProps, AppState> {
     } = this.props;
 
     if (!playerName || !playerId) {
-      return (
-        <MainMenu
-          playerName={playerName}
-          playerId={playerId}
-          difficulty={difficulty}
-          handleStartGame={this.handleStartGame}
-        />
-      );
+      return <MainMenu handleStartGame={this.handleStartGame} />;
     }
 
     return (

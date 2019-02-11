@@ -1,8 +1,13 @@
-import { PLAYER_NAME } from "../constants/Player";
+import { PLAYER_NAME, START_GAME } from "../constants/Player";
 
 const setPlayerName = (payload: string) => ({
   type: PLAYER_NAME.SET,
   payload,
 });
 
-export { setPlayerName };
+const startGame = (payload: { playerName: string; playerId: string }) => ({
+  type: START_GAME,
+  payload,
+});
+
+export { setPlayerName, startGame };

@@ -1,9 +1,19 @@
 import { string } from "prop-types";
+import { playerReducerTypes } from "../../@redux/reducers/types";
 
 interface MainMenuProps {
-  playerName: string;
-  playerId: string;
-  difficulty: number;
+  data: {
+    player: playerReducerTypes;
+  };
+
+  actions: {
+    player: {
+      startGame: (
+        { playerName, playerId }: { playerName: string; playerId: string },
+      ) => any;
+    };
+  };
+
   handleStartGame: (
     { playerName: string, playerId: string, difficulty: number },
   ) => any;
