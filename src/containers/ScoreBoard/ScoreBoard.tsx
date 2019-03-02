@@ -10,12 +10,22 @@ import {
 import { BoldText, Section, Text, Wrapper } from "./styles";
 import { ScoreBoardProps, ScoreBoardState } from "./types";
 
+import { setPlayerName } from "../../@redux/actions/Player";
+
 class ScoreBoard extends React.Component<ScoreBoardProps, ScoreBoardState> {
   public render() {
     const {
       data: {
         player: { playerName },
-        game: { currentYear, gold, food, wood, houses, barracks, fields },
+        game: {
+          currentYear: currentYear,
+          gold,
+          food,
+          wood,
+          houses,
+          barracks,
+          fields,
+        },
       },
     } = this.props;
 

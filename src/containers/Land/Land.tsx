@@ -18,7 +18,7 @@ class Land extends React.Component<landProps, landState> {
       handleOpenBuildModal,
     } = this.props;
     return (
-      <Wrapper>
+      <Wrapper tiles={TILE.tiles}>
         {TILE.tiles.map((t: { id: string; type: string }) => {
           return (
             <Tile

@@ -4,8 +4,8 @@ import { playerActionTypes } from "../actions/types";
 import { playerReducerTypes } from "./types";
 
 const initialState: playerReducerTypes = {
-  playerName: "",
-  playerId: "",
+  playerName: "Trevor",
+  playerId: "fsdfsdf",
 };
 
 const PlayerReducer = (state = initialState, action: any) => {
