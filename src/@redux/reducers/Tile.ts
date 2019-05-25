@@ -1,5 +1,7 @@
+import uuid from "uuid/v4";
+
 import { tileActionTypes } from "../actions/Tile";
-import { CREATE_GAME } from "../constants/Tile";
+import * as TILE_CONSTANTS from "../constants/Tile";
 
 export interface tileReducerTypes {
   /**
@@ -18,54 +20,25 @@ const initialState: tileReducerTypes = {
   tiles: [
     {
       type: "empty",
-      id: "1",
+      id: uuid(),
     },
   ],
 };
 
 const tileReducer = (state = initialState, action: tileActionTypes) => {
-  switch (action.type) {
-    case CREATE_GAME:
-      return {
-        tiles: [
-          {
-            type: "empty",
-            id: "1",
-          },
-          {
-            type: "empty",
-            id: "2",
-          },
-          {
-            type: "empty",
-            id: "3",
-          },
-          {
-            type: "empty",
-            id: "4",
-          },
-          {
-            type: "empty",
-            id: "5",
-          },
-          {
-            type: "empty",
-            id: "6",
-          },
+  const { type, payload } = action;
+  switch (type) {
+    case TILE_CONSTANTS.BUILD:
+      const tiles = state.tiles.map((t) => {
+        if (t.id === payload.id) {
+          return payload;
+        }
+        return t;
+      });
 
-          {
-            type: "empty",
-            id: "7",
-          },
-          {
-            type: "empty",
-            id: "8",
-          },
-          {
-            type: "empty",
-            id: "9",
-          },
-        ],
+      return {
+        ...state,
+        tiles,
       };
     default:
       return state;

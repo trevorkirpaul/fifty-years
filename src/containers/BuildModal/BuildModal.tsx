@@ -1,6 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+// import uuid from "uuid/v4";
 
+import * as TileActions from "@redux/actions/Tile";
 import { storeState } from "@redux/reducers";
 import { gameReducerTypes } from "@redux/reducers/Game";
 
@@ -39,17 +42,17 @@ const options = [
 export interface BuildModalProps {
   buildModalOpen: boolean;
   closeModal: () => any;
-  handleBuild: (options: {
-    tileId: string;
-    action: string;
-    buildingType: string;
-  }) => any;
 
   /**
    * from redux
    */
   data: {
     game: gameReducerTypes;
+  };
+  actions: {
+    tile: {
+      build: ({ type, id }: { type: string; id: string }) => any;
+    };
   };
   /**
    * `currentTileId` is the Tile from
@@ -77,22 +80,24 @@ class BuildModal extends React.Component<BuildModalProps, BuildModalState> {
   }
 
   public startBuild = () => {
+    const {
+      actions: {
+        tile: { build },
+      },
+    } = this.props;
+
     if (!this.state.selectedOption) {
       return null;
     }
 
-    /**
-     * send build options to Application
-     * and clear selected building type
-     */
-
-    this.props.handleBuild({
-      tileId: this.props.currentTileId,
-      buildingType: this.state.selectedOption.value,
-      action: "build",
+    build({
+      type: this.state.selectedOption.value,
+      id: this.props.currentTileId,
     });
 
-    return this.setState({ selectedOption: "" });
+    // reset selection and close modal
+    this.setState({ selectedOption: "" });
+    return this.props.closeModal();
   }
 
   public render() {
@@ -120,7 +125,7 @@ class BuildModal extends React.Component<BuildModalProps, BuildModalState> {
       <Modal modalIsOpen={buildModalOpen}>
         <Wrapper>
           <h1>Build</h1>
-          <p>This is a modal used when buillding on an empty tile</p>
+          <p>This is a modal used when building on an empty tile</p>
           <p>gold: {gold}</p>
           <p>food: {food}</p>
           <p>wood: {wood}</p>
@@ -156,4 +161,13 @@ const mapState = (state: storeState) => ({
   },
 });
 
-export default connect(mapState)(BuildModal);
+const mapDispatch = (dispatch: any) => ({
+  actions: {
+    tile: bindActionCreators(TileActions, dispatch),
+  },
+});
+
+export default connect(
+  mapState,
+  mapDispatch,
+)(BuildModal);

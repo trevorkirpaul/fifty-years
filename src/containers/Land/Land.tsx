@@ -34,7 +34,7 @@ class Land extends React.Component<landProps, landState> {
               key={t.id}
               id={t.id}
               type={t.type}
-              handleOpenBuildModal={handleOpenBuildModal}
+              handleOpenBuildModal={() => handleOpenBuildModal(t.id)}
               gold={GAME.gold}
               food={GAME.food}
               wood={GAME.wood}
