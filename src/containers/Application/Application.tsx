@@ -1,19 +1,44 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { storeState } from "../../@redux/reducers/types";
+import {
+  gameReducerTypes,
+  playerReducerTypes,
+  storeState,
+} from "@redux/reducers/types";
 import {
   game as gameSelector,
   player as playerSelector,
-} from "../../@redux/selectors";
+} from "@redux/selectors";
+import MainMenu from "containers/MainMenu";
+import ScoreBoard from "containers/ScoreBoard";
 
-import MainMenu from "../../containers/MainMenu";
-import ScoreBoard from "../../containers/ScoreBoard";
 import BuildModal from "../BuildModal";
 import Land from "../Land";
 
 import { Wrapper } from "./styles";
-import { AppProps, AppState } from "./types";
+
+export interface AppState {
+  /**
+   * `boolean` which will determine
+   * whether or not the modal used when
+   * building on an empty Tile is open
+   */
+  buildModalOpen: boolean;
+  /**
+   * When the modal is opened, `currentTileId`
+   * will refer to the Tile from which the BuildModal was
+   * opened
+   */
+  currentTileId: string;
+}
+
+export interface AppProps {
+  data: {
+    player: playerReducerTypes;
+    game: gameReducerTypes;
+  };
+}
 
 class Application extends React.Component<AppProps, AppState> {
   constructor(props: AppProps) {

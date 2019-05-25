@@ -1,17 +1,14 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { storeState } from "../../@redux/reducers/types";
-import { game as gameSelector } from "../../@redux/selectors";
-
-import Button from "../../components/Button";
-import Modal from "../../components/Modal";
-import Select from "../../components/Select";
-
-import { Wrapper } from "./styles";
+import { gameReducerTypes, storeState } from "@redux/reducers/types";
+import { game as gameSelector } from "@redux/selectors";
+import Button from "components/Button";
+import Modal from "components/Modal";
+import Select from "components/Select";
 
 import { filterOptionsBasedOnCost } from "./helpers";
-import { BuildModalProps, BuildModalState } from "./types";
+import { Wrapper } from "./styles";
 
 const options = [
   {
@@ -36,6 +33,33 @@ const options = [
     woodCost: 0,
   },
 ];
+
+export interface BuildModalProps {
+  buildModalOpen: boolean;
+  closeModal: () => any;
+  handleBuild: (options: {
+    tileId: string;
+    action: string;
+    buildingType: string;
+  }) => any;
+
+  /**
+   * from redux
+   */
+  data: {
+    game: gameReducerTypes;
+  };
+  /**
+   * `currentTileId` is the Tile from
+   * which the modal was opened and the Tile
+   * we'll be building on
+   */
+  currentTileId: string;
+}
+
+export interface BuildModalState {
+  selectedOption: any;
+}
 
 class BuildModal extends React.Component<BuildModalProps, BuildModalState> {
   constructor(props: BuildModalProps) {

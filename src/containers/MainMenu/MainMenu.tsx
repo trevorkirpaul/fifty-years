@@ -3,15 +3,37 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import uuid from "uuid";
 
-import * as playerActions from "../../@redux/actions/Player";
-import { storeState } from "../../@redux/reducers/types";
-import { player as playerSelector } from "../../@redux/selectors";
-
-import Button from "../../components/Button";
-import Field from "../../components/Field";
+import * as playerActions from "@redux/actions/Player";
+import { playerReducerTypes, storeState } from "@redux/reducers/types";
+import { player as playerSelector } from "@redux/selectors";
+import Button from "components/Button";
+import Field from "components/Field";
 
 import { Title, Wrapper } from "./styles";
-import { MainMenuProps, MainMenuState } from "./types";
+
+export interface MainMenuProps {
+  data: {
+    player: playerReducerTypes;
+  };
+
+  actions: {
+    player: {
+      startGame: ({
+        playerName,
+        playerId,
+      }: {
+        playerName: string;
+        playerId: string;
+      }) => any;
+    };
+  };
+}
+
+export interface MainMenuState {
+  playerName: string;
+  playerId: string;
+  difficulty: number;
+}
 
 class MainMenu extends React.Component<MainMenuProps, MainMenuState> {
   constructor(props: MainMenuProps) {

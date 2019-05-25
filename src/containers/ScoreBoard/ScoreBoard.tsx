@@ -1,16 +1,26 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { storeState } from "../../@redux/reducers/types";
+import {
+  gameReducerTypes,
+  playerReducerTypes,
+  storeState,
+} from "@redux/reducers/types";
 import {
   game as gameSelector,
   player as playerSelector,
-} from "../../@redux/selectors";
+} from "@redux/selectors";
 
 import { BoldText, Section, Text, Wrapper } from "./styles";
-import { ScoreBoardProps, ScoreBoardState } from "./types";
 
-import { setPlayerName } from "../../@redux/actions/Player";
+export interface ScoreBoardProps {
+  data: {
+    game: gameReducerTypes;
+    player: playerReducerTypes;
+  };
+}
+
+export interface ScoreBoardState {}
 
 class ScoreBoard extends React.Component<ScoreBoardProps, ScoreBoardState> {
   public render() {

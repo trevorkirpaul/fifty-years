@@ -1,15 +1,25 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { storeState } from "../../@redux/reducers/types";
 import {
-  game as gameSelector,
-  tile as tileSelector,
-} from "../../@redux/selectors";
-import Tile from "../../components/Tile";
+  gameReducerTypes,
+  storeState,
+  tileReducerTypes,
+} from "@redux/reducers/types";
+import { game as gameSelector, tile as tileSelector } from "@redux/selectors";
+import Tile from "components/Tile";
 
 import { Wrapper } from "./styles";
-import { landProps, landState } from "./types";
+
+export interface landProps {
+  data: {
+    TILE: tileReducerTypes;
+    GAME: gameReducerTypes;
+  };
+
+  handleOpenBuildModal: (id: string) => any;
+}
+export interface landState {}
 
 class Land extends React.Component<landProps, landState> {
   public render() {
