@@ -8,7 +8,25 @@ import HouseTile from "./HouseTile";
 
 import { Text, Wrapper } from "./styles";
 
-import { TileProps } from "./types";
+export interface TileProps {
+  type: string;
+  id: string;
+  handleOpenBuildModal: (id: string) => any;
+  /**
+   * Players current gold
+   */
+  gold: number;
+
+  /**
+   * Players current food
+   */
+  food: number;
+
+  /**
+   * Players current wood
+   */
+  wood: number;
+}
 
 const EmptyTile = ({ type, handleOpenBuildModal }: TileProps) => (
   <Wrapper>

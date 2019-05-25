@@ -3,7 +3,7 @@ import * as React from "react";
 import Button from "../Button";
 
 import { FieldTileWrapper, Text } from "./styles";
-import { TileProps } from "./types";
+import { TileProps } from "./Tile";
 
 const FieldTile = ({ type, handleOpenBuildModal }: TileProps) => (
   <FieldTileWrapper>
