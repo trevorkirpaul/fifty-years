@@ -12,6 +12,7 @@ import {
 import MainMenu from "containers/MainMenu";
 import ScoreBoard from "containers/ScoreBoard";
 
+import ActionsMenu from "../ActionsMenu";
 import BuildModal from "../BuildModal";
 import Land from "../Land";
 
@@ -119,6 +120,8 @@ class Application extends React.Component<AppProps, AppState> {
         />
 
         <ScoreBoard />
+
+        <ActionsMenu />
 
         <Land handleOpenBuildModal={this.handleOpenBuildModal} />
       </Wrapper>

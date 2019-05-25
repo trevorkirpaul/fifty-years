@@ -1,4 +1,4 @@
-import { GOLD } from "../constants/Game";
+import { ADVANCE_TO_NEXT_YEAR, GOLD } from "../constants/Game";
 
 export interface gameActionTypes {
   type: string;
@@ -15,4 +15,8 @@ const removeGold = (payload: number) => ({
   payload,
 });
 
-export { addGold, removeGold };
+const advanceToNextYear = () => ({
+  type: ADVANCE_TO_NEXT_YEAR,
+});
+
+export { addGold, removeGold, advanceToNextYear };

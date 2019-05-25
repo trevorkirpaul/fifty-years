@@ -1,5 +1,7 @@
 import { gameActionTypes } from "../actions/Game";
 
+import * as GAME_CONSTANTS from "../constants/Game";
+
 export interface gameReducerTypes {
   /**
    * `number` which sets the difficulty
@@ -92,11 +94,11 @@ const initialState: gameReducerTypes = {
 
 const gameReducer = (state = initialState, action: gameActionTypes) => {
   switch (action.type) {
-    // case GOLD.ADD:
-    //   return {
-    //     ...state,
-    //     gold: state.gold + action.payload,
-    //   };
+    case GAME_CONSTANTS.ADVANCE_TO_NEXT_YEAR:
+      return {
+        ...state,
+        currentYear: state.currentYear + 1,
+      };
 
     default:
       return state;

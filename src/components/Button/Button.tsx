@@ -30,4 +30,11 @@ const Button = (props: ButtonProps) => {
   );
 };
 
+Button.defaultProps = {
+  onClick: () => {},
+  disabled: false,
+  loading: false,
+  children: "missing label",
+};
+
 export default Button;
