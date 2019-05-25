@@ -1,20 +1,8 @@
-interface AppState {
-  /**
-   * `boolean` which will determine
-   * whether or not the modal used when
-   * building on an empty Tile is open
-   */
-  buildModalOpen: boolean;
-  /**
-   * `string` representing the current
-   * player's name
-   */
-  playerName: string;
-  /**
-   * `string` representing the current
-   * player's ID
-   */
-  playerId: string;
+import { gameActionTypes } from "../actions/Game";
+
+import * as GAME_CONSTANTS from "../constants/Game";
+
+export interface gameReducerTypes {
   /**
    * `number` which sets the difficulty
    * of the game
@@ -66,7 +54,7 @@ interface AppState {
   soldiers: number;
   /**
    * `number` representing the amount of buildings with the
-   * type `house`. Thes buildings limit the number of `citizens`
+   * type `house`. These buildings limit the number of `citizens`
    * which can reside in the player's Lands
    */
   houses: number;
@@ -86,24 +74,35 @@ interface AppState {
    * future
    */
   divinity: number;
-  /**
-   * `tiles` is an array of objects which represent spaces
-   * in a `Land`. These objects can be "empty" and built upon.
-   * When building, the player can choose to build barracks, houses,ect
-   * if enough resources exists
-   */
-  tiles: Array<{
-    type: string;
-    id: string;
-  }>;
-  /**
-   * When the modal is opened, `currentTileId`
-   * will refer to the Tile from which the BuildModal was
-   * opened
-   */
-  currentTileId: string;
 }
 
-interface AppProps {}
+const initialState: gameReducerTypes = {
+  difficulty: 0,
+  currentYear: 0,
+  gold: 100,
+  food: 100,
+  wood: 100,
+  research: 0,
+  divinity: 0,
+  fields: 0,
+  barracks: 0,
+  logHouses: 0,
+  houses: 0,
+  soldiers: 0,
+  citizens: 0,
+};
 
-export { AppState, AppProps };
+const gameReducer = (state = initialState, action: gameActionTypes) => {
+  switch (action.type) {
+    case GAME_CONSTANTS.ADVANCE_TO_NEXT_YEAR:
+      return {
+        ...state,
+        currentYear: state.currentYear + 1,
+      };
+
+    default:
+      return state;
+  }
+};
+
+export default gameReducer;

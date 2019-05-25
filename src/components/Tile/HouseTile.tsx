@@ -3,7 +3,7 @@ import * as React from "react";
 import Button from "../Button";
 
 import { HouseTileWrapper, Text } from "./styles";
-import { TileProps } from "./types";
+import { TileProps } from "./Tile";
 
 const HouseTile = ({ type, handleOpenBuildModal }: TileProps) => (
   <HouseTileWrapper>

@@ -1,11 +1,41 @@
 import * as React from "react";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 import uuid from "uuid";
 
-import Button from "../Button";
-import Field from "../Field";
+import { storeState } from "@redux/reducers";
+import { playerReducerTypes } from "@redux/reducers/Player";
+
+import * as playerActions from "@redux/actions/Player";
+import { player as playerSelector } from "@redux/selectors";
+import Button from "components/Button";
+import Field from "components/Field";
 
 import { Title, Wrapper } from "./styles";
-import { MainMenuProps, MainMenuState } from "./types";
+
+export interface MainMenuProps {
+  data: {
+    player: playerReducerTypes;
+  };
+
+  actions: {
+    player: {
+      startGame: ({
+        playerName,
+        playerId,
+      }: {
+        playerName: string;
+        playerId: string;
+      }) => any;
+    };
+  };
+}
+
+export interface MainMenuState {
+  playerName: string;
+  playerId: string;
+  difficulty: number;
+}
 
 class MainMenu extends React.Component<MainMenuProps, MainMenuState> {
   constructor(props: MainMenuProps) {
@@ -28,14 +58,17 @@ class MainMenu extends React.Component<MainMenuProps, MainMenuState> {
   }
 
   public handleStartGame = () => {
-    const { playerName, playerId, difficulty } = this.state;
-    const { handleStartGame } = this.props;
-
+    const { playerName, playerId } = this.state;
+    const {
+      actions: {
+        player: { startGame },
+      },
+    } = this.props;
     if (!playerName) {
       return null;
     }
 
-    return handleStartGame({ playerName, playerId, difficulty });
+    return startGame({ playerName, playerId });
   }
 
   public render() {
@@ -76,4 +109,19 @@ class MainMenu extends React.Component<MainMenuProps, MainMenuState> {
   }
 }
 
-export default MainMenu;
+const mapState = (state: storeState) => ({
+  data: {
+    player: playerSelector(state),
+  },
+});
+
+const mapDispatch = (dispatch: any) => ({
+  actions: {
+    player: bindActionCreators(playerActions, dispatch),
+  },
+});
+
+export default connect(
+  mapState,
+  mapDispatch,
+)(MainMenu);

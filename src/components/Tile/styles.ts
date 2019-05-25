@@ -26,7 +26,7 @@ const HouseTileWrapper = styled(Wrapper)`
 `;
 
 const Text = styled.span`
-  font-family: sans-serif;
+  font-family: "Roboto", sans-serif;
 `;
 
 export {

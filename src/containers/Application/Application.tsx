@@ -1,12 +1,44 @@
 import React from "react";
+import { connect } from "react-redux";
 
-import Land from "../../components/Land";
-import MainMenu from "../../components/MainMenu";
-import ScoreBoard from "../../components/ScoreBoard";
+import { storeState } from "@redux/reducers";
+import { gameReducerTypes } from "@redux/reducers/Game";
+import { playerReducerTypes } from "@redux/reducers/Player";
+
+import {
+  game as gameSelector,
+  player as playerSelector,
+} from "@redux/selectors";
+import MainMenu from "containers/MainMenu";
+import ScoreBoard from "containers/ScoreBoard";
+
+import ActionsMenu from "../ActionsMenu";
 import BuildModal from "../BuildModal";
+import Land from "../Land";
 
 import { Wrapper } from "./styles";
-import { AppProps, AppState } from "./types";
+
+export interface AppState {
+  /**
+   * `boolean` which will determine
+   * whether or not the modal used when
+   * building on an empty Tile is open
+   */
+  buildModalOpen: boolean;
+  /**
+   * When the modal is opened, `currentTileId`
+   * will refer to the Tile from which the BuildModal was
+   * opened
+   */
+  currentTileId: string;
+}
+
+export interface AppProps {
+  data: {
+    player: playerReducerTypes;
+    game: gameReducerTypes;
+  };
+}
 
 class Application extends React.Component<AppProps, AppState> {
   constructor(props: AppProps) {
@@ -18,67 +50,7 @@ class Application extends React.Component<AppProps, AppState> {
        */
 
       buildModalOpen: false,
-
-      /**
-       * Game logic related state
-       */
-      playerName: "Trevor",
-      playerId: "sdfsdf",
-      difficulty: 0,
-      currentYear: 0,
-      gold: 100,
-      food: 100,
-      wood: 100,
-      research: 0,
-      divinity: 0,
-      fields: 0,
-      barracks: 0,
-      logHouses: 0,
-      houses: 0,
-      soldiers: 0,
-      citizens: 0,
-
       currentTileId: "",
-
-      tiles: [
-        {
-          type: "empty",
-          id: "1",
-        },
-        {
-          type: "empty",
-          id: "2",
-        },
-        {
-          type: "empty",
-          id: "3",
-        },
-        {
-          type: "empty",
-          id: "4",
-        },
-        {
-          type: "empty",
-          id: "5",
-        },
-        {
-          type: "empty",
-          id: "6",
-        },
-
-        {
-          type: "empty",
-          id: "7",
-        },
-        {
-          type: "empty",
-          id: "8",
-        },
-        {
-          type: "empty",
-          id: "9",
-        },
-      ],
     };
   }
 
@@ -91,16 +63,13 @@ class Application extends React.Component<AppProps, AppState> {
     playerId: string;
     difficulty: number;
   }) => {
-    return this.setState({
-      playerName,
-      playerId,
-      difficulty,
-    });
+    return console.log("UPDATE");
   }
 
   public handleOpenBuildModal = (id: string) => {
     return this.setState({ buildModalOpen: true, currentTileId: id });
   }
+
   public handleCloseBuildModal = () => {
     return this.setState({ buildModalOpen: false });
   }
@@ -126,61 +95,19 @@ class Application extends React.Component<AppProps, AppState> {
     action: string;
     buildingType: string;
   }) => {
-    const { gold } = this.state;
-
-    if (gold <= 0) {
-      return window.alert("NO GOLD!");
-    }
-
-    return this.setState((prev) => ({
-      buildModalOpen: false,
-      tiles: prev.tiles.map((t) => {
-        /**
-         * find the tile by id and
-         * set it's building type
-         * to the one specified in
-         * the options supplied from the arg
-         */
-        if (t.id === options.tileId) {
-          return {
-            ...t,
-            type: options.buildingType,
-          };
-        }
-
-        return t;
-      }),
-    }));
+    return null;
   }
 
   public render() {
+    const { buildModalOpen, currentTileId } = this.state;
     const {
-      buildModalOpen,
-      playerName,
-      playerId,
-      difficulty,
-      currentYear,
-      gold,
-      food,
-      wood,
-      fields,
-      barracks,
-      houses,
-      soldiers,
-      citizens,
-      currentTileId,
-      tiles,
-    } = this.state;
+      data: {
+        player: { playerId, playerName },
+      },
+    } = this.props;
 
     if (!playerName || !playerId) {
-      return (
-        <MainMenu
-          playerName={playerName}
-          playerId={playerId}
-          difficulty={difficulty}
-          handleStartGame={this.handleStartGame}
-        />
-      );
+      return <MainMenu />;
     }
 
     return (
@@ -190,33 +117,23 @@ class Application extends React.Component<AppProps, AppState> {
           buildModalOpen={buildModalOpen}
           closeModal={this.handleCloseBuildModal}
           handleBuild={this.handleBuild}
-          gold={gold}
-          food={food}
-          wood={wood}
         />
 
-        <ScoreBoard
-          playerName={playerName}
-          currentYear={currentYear}
-          gold={gold}
-          food={food}
-          fields={fields}
-          barracks={barracks}
-          houses={houses}
-          soldiers={soldiers}
-          citizens={citizens}
-        />
+        <ScoreBoard />
 
-        <Land
-          tiles={tiles}
-          handleOpenBuildModal={this.handleOpenBuildModal}
-          gold={gold}
-          food={food}
-          wood={wood}
-        />
+        <ActionsMenu />
+
+        <Land handleOpenBuildModal={this.handleOpenBuildModal} />
       </Wrapper>
     );
   }
 }
 
-export default Application;
+const mapState = (state: storeState) => ({
+  data: {
+    player: playerSelector(state),
+    game: gameSelector(state),
+  },
+});
+
+export default connect(mapState)(Application);

@@ -1,13 +1,16 @@
 import React from "react";
+import { connect } from "react-redux";
 
-import Button from "../../components/Button";
-import Modal from "../../components/Modal";
-import Select from "../../components/Select";
+import { storeState } from "@redux/reducers";
+import { gameReducerTypes } from "@redux/reducers/Game";
 
-import { Wrapper } from "./styles";
+import { game as gameSelector } from "@redux/selectors";
+import Button from "components/Button";
+import Modal from "components/Modal";
+import Select from "components/Select";
 
 import { filterOptionsBasedOnCost } from "./helpers";
-import { BuildModalProps, BuildModalState } from "./types";
+import { Wrapper } from "./styles";
 
 const options = [
   {
@@ -32,6 +35,33 @@ const options = [
     woodCost: 0,
   },
 ];
+
+export interface BuildModalProps {
+  buildModalOpen: boolean;
+  closeModal: () => any;
+  handleBuild: (options: {
+    tileId: string;
+    action: string;
+    buildingType: string;
+  }) => any;
+
+  /**
+   * from redux
+   */
+  data: {
+    game: gameReducerTypes;
+  };
+  /**
+   * `currentTileId` is the Tile from
+   * which the modal was opened and the Tile
+   * we'll be building on
+   */
+  currentTileId: string;
+}
+
+export interface BuildModalState {
+  selectedOption: any;
+}
 
 class BuildModal extends React.Component<BuildModalProps, BuildModalState> {
   constructor(props: BuildModalProps) {
@@ -66,7 +96,13 @@ class BuildModal extends React.Component<BuildModalProps, BuildModalState> {
   }
 
   public render() {
-    const { buildModalOpen, closeModal, gold, food, wood } = this.props;
+    const {
+      buildModalOpen,
+      closeModal,
+      data: {
+        game: { gold, food, wood },
+      },
+    } = this.props;
     const { selectedOption } = this.state;
 
     /**
@@ -113,4 +149,11 @@ class BuildModal extends React.Component<BuildModalProps, BuildModalState> {
     );
   }
 }
-export default BuildModal;
+
+const mapState = (state: storeState) => ({
+  data: {
+    game: gameSelector(state),
+  },
+});
+
+export default connect(mapState)(BuildModal);
