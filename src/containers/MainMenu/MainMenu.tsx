@@ -48,6 +48,29 @@ class MainMenu extends React.Component<MainMenuProps, MainMenuState> {
     };
   }
 
+  /**
+   * The main action that happens in **componentDidMount** is that
+   * we check for cached player data. If found, we'll dispatch `startGame`
+   * in order to pick back up.
+   *
+   * @TODO add support for handled cached resources
+   */
+  public componentDidMount() {
+    const {
+      actions: {
+        player: { startGame },
+      },
+    } = this.props;
+
+    const cachedPlayerData = localStorage.getItem("player");
+
+    if (cachedPlayerData) {
+      const { playerName = "", playerId = "" } = JSON.parse(cachedPlayerData);
+
+      return startGame({ playerName, playerId });
+    }
+  }
+
   public handleOnChangePlayerName = (e: React.FormEvent<HTMLInputElement>) => {
     const value = e.currentTarget.value;
     return this.setState(() => ({ playerName: value }));
@@ -57,17 +80,29 @@ class MainMenu extends React.Component<MainMenuProps, MainMenuState> {
     return this.setState({ playerId: uuid() });
   }
 
+  /**
+   * **handleStartGame** handles updating the `Player` reducer
+   * with the `playerName` and `playerId`. We'll also store these
+   * values in `localStorage` so that these values can persist.
+   */
   public handleStartGame = () => {
     const { playerName, playerId } = this.state;
+
     const {
       actions: {
         player: { startGame },
       },
     } = this.props;
+
     if (!playerName) {
       return null;
     }
 
+    // store player data in localStorage as a JSON value
+    const playerData = { playerName, playerId };
+    localStorage.setItem("player", JSON.stringify(playerData));
+
+    // end method with dispatch to store values in Player reducer
     return startGame({ playerName, playerId });
   }
 

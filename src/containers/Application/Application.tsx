@@ -81,7 +81,7 @@ class Application extends React.Component<AppProps, AppState> {
    *
    * @options is an object which contains:
    *
-   * `tileId`: string represeting the Tile being worked on
+   * `tileId`: string representing the Tile being worked on
    *
    * `action`: string representing how we are working/interacting
    * with the Tile. This can be "build" for example
