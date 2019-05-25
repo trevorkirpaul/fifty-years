@@ -3,8 +3,10 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import uuid from "uuid";
 
+import { storeState } from "@redux/reducers";
+import { playerReducerTypes } from "@redux/reducers/Player";
+
 import * as playerActions from "@redux/actions/Player";
-import { playerReducerTypes, storeState } from "@redux/reducers/types";
 import { player as playerSelector } from "@redux/selectors";
 import Button from "components/Button";
 import Field from "components/Field";

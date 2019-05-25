@@ -1,7 +1,9 @@
 import { PLAYER_NAME, START_GAME } from "../constants/Player";
 
-import { playerActionTypes } from "../actions/types";
-import { playerReducerTypes } from "./types";
+export interface playerReducerTypes {
+  playerName: string;
+  playerId: string;
+}
 
 const initialState: playerReducerTypes = {
   playerName: "Trevor",

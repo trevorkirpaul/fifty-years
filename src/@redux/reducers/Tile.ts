@@ -1,6 +1,18 @@
-import { tileActionTypes } from "../actions/types";
+import { tileActionTypes } from "../actions/Tile";
 import { CREATE_GAME } from "../constants/Tile";
-import { tileReducerTypes } from "./types";
+
+export interface tileReducerTypes {
+  /**
+   * `tiles` is an array of objects which represent spaces
+   * in a `Land`. These objects can be "empty" and built upon.
+   * When building, the player can choose to build barracks, houses,ect
+   * if enough resources exists
+   */
+  tiles: Array<{
+    type: string;
+    id: string;
+  }>;
+}
 
 const initialState: tileReducerTypes = {
   tiles: [

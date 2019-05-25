@@ -1,7 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { gameReducerTypes, storeState } from "@redux/reducers/types";
+import { storeState } from "@redux/reducers";
+import { gameReducerTypes } from "@redux/reducers/Game";
+
 import { game as gameSelector } from "@redux/selectors";
 import Button from "components/Button";
 import Modal from "components/Modal";

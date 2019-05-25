@@ -1,11 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import {
-  gameReducerTypes,
-  storeState,
-  tileReducerTypes,
-} from "@redux/reducers/types";
+import { storeState } from "@redux/reducers";
+import { gameReducerTypes } from "@redux/reducers/Game";
+import { tileReducerTypes } from "@redux/reducers/Tile";
+
 import { game as gameSelector, tile as tileSelector } from "@redux/selectors";
 import Tile from "components/Tile";
 

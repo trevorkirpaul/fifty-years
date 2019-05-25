@@ -1,5 +1,4 @@
-import { start } from "repl";
-import { storeState } from "../reducers/types";
+import { storeState } from "../reducers";
 
 const tile = (state: storeState) => state.TILE;
 const player = (state: storeState) => state.PLAYER;

@@ -1,5 +1,10 @@
 import { GOLD } from "../constants/Game";
 
+export interface gameActionTypes {
+  type: string;
+  payload: number;
+}
+
 const addGold = (payload: number) => ({
   type: GOLD.ADD,
   payload,
@@ -10,4 +15,4 @@ const removeGold = (payload: number) => ({
   payload,
 });
 
-export { addGold };
+export { addGold, removeGold };

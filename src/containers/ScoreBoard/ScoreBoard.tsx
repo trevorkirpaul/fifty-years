@@ -1,11 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import {
-  gameReducerTypes,
-  playerReducerTypes,
-  storeState,
-} from "@redux/reducers/types";
+import { storeState } from "@redux/reducers";
+import { gameReducerTypes } from "@redux/reducers/Game";
+import { playerReducerTypes } from "@redux/reducers/Player";
+
 import {
   game as gameSelector,
   player as playerSelector,
@@ -27,15 +26,7 @@ class ScoreBoard extends React.Component<ScoreBoardProps, ScoreBoardState> {
     const {
       data: {
         player: { playerName },
-        game: {
-          currentYear: currentYear,
-          gold,
-          food,
-          wood,
-          houses,
-          barracks,
-          fields,
-        },
+        game: { currentYear, gold, food, houses, barracks, fields },
       },
     } = this.props;
 
