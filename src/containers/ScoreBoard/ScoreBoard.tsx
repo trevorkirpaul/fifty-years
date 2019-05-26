@@ -10,6 +10,8 @@ import {
   player as playerSelector,
 } from "@redux/selectors";
 
+import ActionsMenu from "../ActionsMenu";
+
 import * as S from "./styles";
 
 export interface ScoreBoardProps {
@@ -31,40 +33,48 @@ class ScoreBoard extends React.Component<ScoreBoardProps, ScoreBoardState> {
     } = this.props;
 
     return (
-      <S.ScoreBoard>
-        <S.Row>
-          <S.BoldText>Player:</S.BoldText>
-          <S.Text>{playerName}</S.Text>
-        </S.Row>
-        <S.Row>
-          <S.BoldText>Current Year:</S.BoldText>
-          <S.Text>{currentYear}</S.Text>
-        </S.Row>
-        <S.Row>
-          <S.BoldText>Gold:</S.BoldText>
-          <S.Text>{gold}</S.Text>
-        </S.Row>
-        <S.Row>
-          <S.BoldText>Food:</S.BoldText>
-          <S.Text>{food}</S.Text>
-        </S.Row>
-        <S.Row>
-          <S.BoldText>Wood:</S.BoldText>
-          <S.Text>{wood}</S.Text>
-        </S.Row>
-        <S.Row>
-          <S.BoldText>Houses:</S.BoldText>
-          <S.Text>{houses}</S.Text>
-        </S.Row>
-        <S.Row>
-          <S.BoldText>Barracks:</S.BoldText>
-          <S.Text>{barracks}</S.Text>
-        </S.Row>
-        <S.Row>
-          <S.BoldText>Fields:</S.BoldText>
-          <S.Text>{fields}</S.Text>
-        </S.Row>
-      </S.ScoreBoard>
+      <S.Bottom>
+        <ActionsMenu />
+        <S.ScoreBoard>
+          <S.Left>
+            <S.Row>
+              <S.BoldText>Player:</S.BoldText>
+              <S.Text>{playerName}</S.Text>
+            </S.Row>
+            <S.Row>
+              <S.BoldText>Current Year:</S.BoldText>
+              <S.Text>{currentYear}</S.Text>
+            </S.Row>
+            <S.Row>
+              <S.BoldText>Gold:</S.BoldText>
+              <S.Text>{gold}</S.Text>
+            </S.Row>
+            <S.Row>
+              <S.BoldText>Food:</S.BoldText>
+              <S.Text>{food}</S.Text>
+            </S.Row>
+          </S.Left>
+
+          <S.Right>
+            <S.Row>
+              <S.BoldText>Wood:</S.BoldText>
+              <S.Text>{wood}</S.Text>
+            </S.Row>
+            <S.Row>
+              <S.BoldText>Houses:</S.BoldText>
+              <S.Text>{houses}</S.Text>
+            </S.Row>
+            <S.Row>
+              <S.BoldText>Barracks:</S.BoldText>
+              <S.Text>{barracks}</S.Text>
+            </S.Row>
+            <S.Row>
+              <S.BoldText>Fields:</S.BoldText>
+              <S.Text>{fields}</S.Text>
+            </S.Row>
+          </S.Right>
+        </S.ScoreBoard>
+      </S.Bottom>
     );
   }
 }
