@@ -86,17 +86,18 @@ class Application extends React.Component<AppProps, AppState> {
     }
 
     return (
-      <Wrapper>
+      <React.Fragment>
         <BuildModal
           currentTileId={currentTileId}
           buildModalOpen={buildModalOpen}
           closeModal={this.handleCloseBuildModal}
         />
+        <Wrapper>
+          <Land handleOpenBuildModal={this.handleOpenBuildModal} />
 
-        <Land handleOpenBuildModal={this.handleOpenBuildModal} />
-
-        <ScoreBoard />
-      </Wrapper>
+          <ScoreBoard />
+        </Wrapper>
+      </React.Fragment>
     );
   }
 }

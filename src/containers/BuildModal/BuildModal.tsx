@@ -10,11 +10,12 @@ import { gameReducerTypes } from "@redux/reducers/Game";
 
 import { game as gameSelector } from "@redux/selectors";
 import Button from "components/Button";
-import Modal from "components/Modal";
+import Modal from "components/Modal/_Modal";
 import Select from "components/Select";
+import Text from "components/Text";
 
 import { filterOptionsBasedOnCost } from "./helpers";
-import { Wrapper } from "./styles";
+import * as S from "./styles";
 
 const options = [
   {
@@ -137,34 +138,80 @@ class BuildModal extends React.Component<BuildModalProps, BuildModalState> {
     });
 
     return (
-      <Modal modalIsOpen={buildModalOpen}>
-        <Wrapper>
-          <h1>Build</h1>
-          <p>This is a modal used when building on an empty tile</p>
-          <p>gold: {gold}</p>
+      <Modal isOpen={buildModalOpen} onClose={() => {}}>
+        <S.BuildModal>
+          <S.TitleSection>
+            <S.Heading>Build</S.Heading>
+
+            <Text>
+              Select the type of building which will be constructed on this
+              empty land.
+            </Text>
+          </S.TitleSection>
+
+          {/* <p>gold: {gold}</p>
           <p>food: {food}</p>
-          <p>wood: {wood}</p>
+          <p>wood: {wood}</p> */}
 
-          <Select
-            options={optionsPlayerCanAfford}
-            value={selectedOption}
-            onChange={this.handleOnChangeSelect}
-          />
+          <S.SelectionWrapper>
+            <Select
+              options={optionsPlayerCanAfford}
+              value={selectedOption}
+              onChange={this.handleOnChangeSelect}
+            />
+          </S.SelectionWrapper>
 
-          <Button onClick={closeModal} disabled={false} loading={false}>
-            Cancel
-          </Button>
+          <S.CurrentSelection>
+            <S.Row>
+              <Text>type:</Text>
 
-          <Button
-            onClick={this.startBuild}
-            disabled={
-              optionsPlayerCanAfford.length === 0 || !this.state.selectedOption
-            }
-            loading={false}
-          >
-            Start Building
-          </Button>
-        </Wrapper>
+              <Text>
+                {selectedOption ? selectedOption.label : "nothing selected"}
+              </Text>
+            </S.Row>
+
+            <S.Row>
+              <Text>gold cost:</Text>
+
+              <Text>
+                {selectedOption ? selectedOption.goldCost : "nothing selected"}
+              </Text>
+            </S.Row>
+
+            <S.Row>
+              <Text>food cost:</Text>
+
+              <Text>
+                {selectedOption ? selectedOption.foodCost : "nothing selected"}
+              </Text>
+            </S.Row>
+
+            <S.Row>
+              <Text>wood cost:</Text>
+
+              <Text>
+                {selectedOption ? selectedOption.woodCost : "nothing selected"}
+              </Text>
+            </S.Row>
+          </S.CurrentSelection>
+
+          <S.ActionSection>
+            <Button onClick={closeModal} disabled={false} loading={false}>
+              Cancel
+            </Button>
+
+            <Button
+              onClick={this.startBuild}
+              disabled={
+                optionsPlayerCanAfford.length === 0 ||
+                !this.state.selectedOption
+              }
+              loading={false}
+            >
+              Start Building
+            </Button>
+          </S.ActionSection>
+        </S.BuildModal>
       </Modal>
     );
   }
