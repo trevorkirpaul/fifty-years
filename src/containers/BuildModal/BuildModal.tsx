@@ -249,8 +249,8 @@ class BuildModal extends React.Component<BuildModalProps, BuildModalState> {
           <S.ActionSection>
             <Button onClick={this.toggleShowResourcesAfterBuying}>
               {showResourcesAfterBuying
-                ? "Show Resources After Building"
-                : "Show Resources Before Building"}
+                ? "Show Resources Before Building"
+                : "Show Resources After Building"}
             </Button>
             <Button onClick={closeModal} disabled={false} loading={false}>
               Cancel
