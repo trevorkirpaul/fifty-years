@@ -12,9 +12,10 @@ const Wrapper = styled.div`
   justify-content: ${(props: WrapperProps) =>
     props.tiles && props.tiles.length === 1 ? "flex-start" : "space-between"};
 
-  max-width: 500px;
+  /* max-width: 500px; */
+  width: 100%;
   /* padding: 15px; */
-  margin: 10px auto 0 auto;
+  /* margin: 10px auto 0 auto; */
 `;
 
 export { Wrapper };
