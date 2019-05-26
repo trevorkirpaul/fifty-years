@@ -5,10 +5,10 @@ const ActionMenu = styled.div`
   /* max-width: 500px; */
   width: 100%;
 
-  background: #b3e5fc;
+  background: #616161;
 
   padding: 5px;
-  border-radius: 5px;
+  /* border-radius: 5px; */
 
   display: flex;
   justify-content: space-around;
