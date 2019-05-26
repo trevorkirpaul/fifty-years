@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const BuildModal = styled.div`
   position: fixed;
-  height: 500px;
+  height: 600px;
   width: 500px;
   top: 50%;
   left: 50%;
@@ -13,6 +13,7 @@ const BuildModal = styled.div`
   padding: 25px;
   display: flex;
   flex-direction: column;
+  border-radius: 5px;
 `;
 
 const TitleSection = styled.div`
@@ -28,8 +29,9 @@ const SelectionWrapper = styled.div`
 `;
 
 const CurrentSelection = styled.div`
-  border-top: 2px solid #78909c;
-  border-bottom: 2px solid #78909c;
+  margin-bottom: 15px;
+  /* border-top: 2px solid #78909c; */
+  /* border-bottom: 2px solid #78909c; */
 
   & :nth-child(even) {
     &:not(span) {
@@ -45,6 +47,11 @@ const Row = styled.div`
   padding: 5px 10px;
 `;
 
+const Label = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
 const ActionSection = styled.div`
   margin-top: auto;
   align-self: flex-end;
@@ -58,4 +65,5 @@ export {
   CurrentSelection,
   ActionSection,
   Row,
+  Label,
 };

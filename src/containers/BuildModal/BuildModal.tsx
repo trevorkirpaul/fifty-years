@@ -1,7 +1,7 @@
+import * as R from "ramda";
 import React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-// import uuid from "uuid/v4";
 
 import * as GameActions from "@redux/actions/Game";
 import * as TileActions from "@redux/actions/Tile";
@@ -10,11 +10,12 @@ import { gameReducerTypes } from "@redux/reducers/Game";
 
 import { game as gameSelector } from "@redux/selectors";
 import Button from "components/Button";
+import { SubHeading } from "components/Heading";
 import Modal from "components/Modal/_Modal";
 import Select from "components/Select";
 import Text from "components/Text";
 
-import { filterOptionsBasedOnCost } from "./helpers";
+import { filterOptionsBasedOnCost, renderCalculatedResource } from "./helpers";
 import * as S from "./styles";
 
 const options = [
@@ -72,6 +73,7 @@ export interface BuildModalProps {
 
 export interface BuildModalState {
   selectedOption: any;
+  showResourcesAfterBuying: boolean;
 }
 
 class BuildModal extends React.Component<BuildModalProps, BuildModalState> {
@@ -80,8 +82,14 @@ class BuildModal extends React.Component<BuildModalProps, BuildModalState> {
 
     this.state = {
       selectedOption: null,
+      showResourcesAfterBuying: false,
     };
   }
+
+  public toggleShowResourcesAfterBuying = () =>
+    this.setState((prev) => ({
+      showResourcesAfterBuying: !prev.showResourcesAfterBuying,
+    }))
 
   public handleOnChangeSelect = (option: { value: string; label: string }) => {
     return this.setState({ selectedOption: option });
@@ -124,7 +132,7 @@ class BuildModal extends React.Component<BuildModalProps, BuildModalState> {
         game: { gold, food, wood },
       },
     } = this.props;
-    const { selectedOption } = this.state;
+    const { selectedOption, showResourcesAfterBuying } = this.state;
 
     /**
      * Using `filterOptionsBasedOnCost` to determine
@@ -162,6 +170,8 @@ class BuildModal extends React.Component<BuildModalProps, BuildModalState> {
           </S.SelectionWrapper>
 
           <S.CurrentSelection>
+            <SubHeading>Cost:</SubHeading>
+
             <S.Row>
               <Text>type:</Text>
 
@@ -195,7 +205,53 @@ class BuildModal extends React.Component<BuildModalProps, BuildModalState> {
             </S.Row>
           </S.CurrentSelection>
 
+          <S.CurrentSelection>
+            <SubHeading>
+              {showResourcesAfterBuying
+                ? "Your Resources (after building):"
+                : "Your Resources:"}
+            </SubHeading>
+
+            <S.Row>
+              <Text>Gold:</Text>
+              <Text>
+                {renderCalculatedResource(
+                  showResourcesAfterBuying,
+                  gold,
+                  R.path(["goldCost"], selectedOption),
+                )}
+              </Text>
+            </S.Row>
+
+            <S.Row>
+              <Text>Food:</Text>
+              <Text>
+                {renderCalculatedResource(
+                  showResourcesAfterBuying,
+                  food,
+                  R.path(["foodCost"], selectedOption),
+                )}
+              </Text>
+            </S.Row>
+
+            <S.Row>
+              <Text>Wood:</Text>
+              <Text>
+                {renderCalculatedResource(
+                  showResourcesAfterBuying,
+                  wood,
+                  R.path(["woodCost"], selectedOption),
+                )}
+              </Text>
+            </S.Row>
+          </S.CurrentSelection>
+
           <S.ActionSection>
+            <Button onClick={this.toggleShowResourcesAfterBuying}>
+              {showResourcesAfterBuying
+                ? "Show Resources After Building"
+                : "Show Resources Before Building"}
+            </Button>
             <Button onClick={closeModal} disabled={false} loading={false}>
               Cancel
             </Button>
