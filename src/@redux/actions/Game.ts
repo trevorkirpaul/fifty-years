@@ -1,4 +1,4 @@
-import { ADVANCE_TO_NEXT_YEAR, GOLD } from "../constants/Game";
+import { ADVANCE_TO_NEXT_YEAR, FOOD, GOLD, WOOD } from "../constants/Game";
 
 export interface gameActionTypes {
   type: string;
@@ -15,8 +15,36 @@ const removeGold = (payload: number) => ({
   payload,
 });
 
+const addWood = (payload: number) => ({
+  type: WOOD.ADD,
+  payload,
+});
+
+const removeWood = (payload: number) => ({
+  type: WOOD.DEPLETE,
+  payload,
+});
+
+const addFood = (payload: number) => ({
+  type: FOOD.ADD,
+  payload,
+});
+
+const removeFood = (payload: number) => ({
+  type: FOOD.DEPLETE,
+  payload,
+});
+
 const advanceToNextYear = () => ({
   type: ADVANCE_TO_NEXT_YEAR,
 });
 
-export { addGold, removeGold, advanceToNextYear };
+export {
+  addGold,
+  removeGold,
+  addFood,
+  removeFood,
+  addWood,
+  removeWood,
+  advanceToNextYear,
+};

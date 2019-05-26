@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 // import uuid from "uuid/v4";
 
+import * as GameActions from "@redux/actions/Game";
 import * as TileActions from "@redux/actions/Tile";
 import { storeState } from "@redux/reducers";
 import { gameReducerTypes } from "@redux/reducers/Game";
@@ -20,22 +21,22 @@ const options = [
     value: "barracks",
     label: "barracks",
     goldCost: 50,
-    foodCost: 0,
-    woodCost: 0,
+    foodCost: 25,
+    woodCost: 25,
   },
   {
     value: "house",
     label: "house",
     goldCost: 50,
-    foodCost: 0,
-    woodCost: 0,
+    foodCost: 25,
+    woodCost: 25,
   },
   {
     value: "field",
     label: "field",
     goldCost: 50,
     foodCost: 0,
-    woodCost: 0,
+    woodCost: 25,
   },
 ];
 
@@ -52,6 +53,12 @@ export interface BuildModalProps {
   actions: {
     tile: {
       build: ({ type, id }: { type: string; id: string }) => any;
+    };
+    game: {
+      addGold: (payload: number) => any;
+      removeGold: (payload: number) => any;
+      removeWood: (payload: number) => any;
+      removeFood: (payload: number) => any;
     };
   };
   /**
@@ -83,6 +90,7 @@ class BuildModal extends React.Component<BuildModalProps, BuildModalState> {
     const {
       actions: {
         tile: { build },
+        game: { removeGold, removeFood, removeWood },
       },
     } = this.props;
 
@@ -90,10 +98,17 @@ class BuildModal extends React.Component<BuildModalProps, BuildModalState> {
       return null;
     }
 
+    // dispatch actions to build the tile, updating
+    // the Tile reducer. We'll also dispatch actions
+    // to deplete the necessary resources
     build({
       type: this.state.selectedOption.value,
       id: this.props.currentTileId,
     });
+
+    removeGold(this.state.selectedOption.goldCost);
+    removeWood(this.state.selectedOption.woodCost);
+    removeFood(this.state.selectedOption.foodCost);
 
     // reset selection and close modal
     this.setState({ selectedOption: "" });
@@ -164,6 +179,7 @@ const mapState = (state: storeState) => ({
 const mapDispatch = (dispatch: any) => ({
   actions: {
     tile: bindActionCreators(TileActions, dispatch),
+    game: bindActionCreators(GameActions, dispatch),
   },
 });
 
