@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-const Wrapper = styled.div`
+const ScoreBoard = styled.div`
   max-width: 500px;
   margin: 0 auto;
   padding: 15px;
@@ -8,16 +8,16 @@ const Wrapper = styled.div`
   border-radius: 5px;
 `;
 
-interface SectionProps {
+export interface RowProps {
   col?: boolean;
 }
 
-const Section = styled.div`
+const Row = styled.div<RowProps>`
   display: flex;
   justify-content: space-between;
   margin-bottom: 15px;
 
-  ${(props: SectionProps) =>
+  ${(props) =>
     props.col &&
     css`
       flex-direction: column;
@@ -25,16 +25,16 @@ const Section = styled.div`
     `}
 `;
 
-interface TextProps {
+export interface TextProps {
   padBottom?: boolean;
 }
 
-const Text = styled.span`
+const Text = styled.span<TextProps>`
   font-weight: 300;
   color: #f8f8f8;
   font-family: "Roboto", sans-serif;
 
-  ${(props: TextProps) =>
+  ${(props) =>
     props.padBottom &&
     css`
       padding-bottom: 10px;
@@ -46,4 +46,4 @@ const BoldText = styled(Text)`
   color: #f8f8f8;
 `;
 
-export { Wrapper, Text, BoldText, Section };
+export { ScoreBoard, Text, BoldText, Row };
