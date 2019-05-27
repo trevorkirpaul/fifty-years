@@ -41,9 +41,10 @@ class ScoreBoard extends React.Component<ScoreBoardProps, ScoreBoardState> {
               <S.BoldText>Player:</S.BoldText>
               <S.Text>{playerName}</S.Text>
             </S.Row>
+
             <S.Row>
-              <S.BoldText>Current Year:</S.BoldText>
-              <S.Text>{currentYear}</S.Text>
+              <S.BoldText>Wood:</S.BoldText>
+              <S.Text>{wood}</S.Text>
             </S.Row>
             <S.Row>
               <S.BoldText>Gold:</S.BoldText>
@@ -57,9 +58,10 @@ class ScoreBoard extends React.Component<ScoreBoardProps, ScoreBoardState> {
 
           <S.Right>
             <S.Row>
-              <S.BoldText>Wood:</S.BoldText>
-              <S.Text>{wood}</S.Text>
+              <S.BoldText>Current Year:</S.BoldText>
+              <S.Text>{currentYear}</S.Text>
             </S.Row>
+
             <S.Row>
               <S.BoldText>Houses:</S.BoldText>
               <S.Text>{houses}</S.Text>

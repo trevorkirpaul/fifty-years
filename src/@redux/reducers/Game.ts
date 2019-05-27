@@ -112,6 +112,12 @@ const gameReducer = (state = initialState, action: gameActionTypes) => {
         food: state.food - action.payload,
       };
 
+    case GAME_CONSTANTS.FOOD.ADD:
+      return {
+        ...state,
+        food: state.food + action.payload,
+      };
+
     case GAME_CONSTANTS.WOOD.DEPLETE:
       return {
         ...state,

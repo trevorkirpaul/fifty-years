@@ -13,4 +13,10 @@ const CREATE_GAME: string = `@@${NAME}/CREATE_GAME`;
 
 const BUILD = `@@${NAME}/BUILD`;
 
-export { NAME, CREATE_GAME, BUILD };
+const TILE_TYPES = {
+  BARRACKS: "BARRACKS",
+  HOUSE: "HOUSE",
+  FIELD: "FIELD",
+};
+
+export { NAME, CREATE_GAME, BUILD, TILE_TYPES };

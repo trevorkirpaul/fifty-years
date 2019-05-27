@@ -8,6 +8,7 @@ import * as TileActions from "@redux/actions/Tile";
 import { storeState } from "@redux/reducers";
 import { gameReducerTypes } from "@redux/reducers/Game";
 
+import { TILE_TYPES } from "@redux/constants/Tile";
 import { game as gameSelector } from "@redux/selectors";
 import Button from "components/Button";
 import { SubHeading } from "components/Heading";
@@ -20,21 +21,21 @@ import * as S from "./styles";
 
 const options = [
   {
-    value: "barracks",
+    value: TILE_TYPES.BARRACKS,
     label: "barracks",
     goldCost: 50,
     foodCost: 25,
     woodCost: 25,
   },
   {
-    value: "house",
+    value: TILE_TYPES.HOUSE,
     label: "house",
     goldCost: 50,
     foodCost: 25,
     woodCost: 25,
   },
   {
-    value: "field",
+    value: TILE_TYPES.FIELD,
     label: "field",
     goldCost: 50,
     foodCost: 0,
