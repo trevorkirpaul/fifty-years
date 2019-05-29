@@ -1,11 +1,13 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { ADVANCE_TO_NEXT_YEAR, FOOD } from "@redux/constants/Game";
+import { ADVANCE_TO_NEXT_YEAR, FOOD, GOLD, WOOD } from "@redux/constants/Game";
 import { TILE_TYPES } from "@redux/constants/Tile";
 import { storeState } from "@redux/reducers";
 
 import Button from "components/Button";
+
+import RandomEventModal from "./components/RandomEventModal";
 
 import * as S from "./styles";
 
@@ -20,6 +22,10 @@ const ActionMenu = (props: ActionMenuProps) => {
   const dispatch = useDispatch();
   const { currentYear } = useSelector((state: storeState) => state.GAME);
   const { tiles } = useSelector((state: storeState) => state.TILE);
+  const [randomEventModalIsOpen, toggleRandomEventModalIsOpen] = React.useState(
+    false,
+  );
+  const [eventTypeForModal, setEventTypeForModal] = React.useState("");
 
   /**
    * **advanceYear** handles all logic that should happen
@@ -53,17 +59,57 @@ const ActionMenu = (props: ActionMenuProps) => {
       type: FOOD.ADD,
       payload: finalAmountOfFood,
     });
+
+    // random event
+    const events = [
+      {
+        name: "FOUND_TREASURE",
+        type: GOLD.ADD,
+        payload: 500,
+      },
+      {
+        name: "FOUND_ABANDONED_CAMP",
+        type: WOOD.ADD,
+        payload: 250,
+      },
+      {
+        name: "HARVEST_BOON",
+        type: FOOD.ADD,
+        payload: 500,
+      },
+    ];
+
+    const randomChoice = Math.floor(Math.random() * 10);
+
+    if (randomChoice < events.length) {
+      toggleRandomEventModalIsOpen(true);
+
+      setEventTypeForModal(events[randomChoice].name);
+
+      dispatch({
+        type: events[randomChoice].type,
+        payload: events[randomChoice].payload,
+      });
+    }
+
     return dispatch({ type: ADVANCE_TO_NEXT_YEAR });
   };
 
   return (
-    <S.ActionMenu>
-      <Button onClick={() => {}}>options</Button>
+    <React.Fragment>
+      <RandomEventModal
+        isOpen={randomEventModalIsOpen}
+        toggleRandomEventModalIsOpen={toggleRandomEventModalIsOpen}
+        eventType={eventTypeForModal}
+      />
+      <S.ActionMenu>
+        <Button onClick={() => {}}>options</Button>
 
-      <Button onClick={() => advanceYear()}>
-        Advance to year {currentYear + 1}
-      </Button>
-    </S.ActionMenu>
+        <Button onClick={() => advanceYear()}>
+          Advance to year {currentYear + 1}
+        </Button>
+      </S.ActionMenu>
+    </React.Fragment>
   );
 };
 

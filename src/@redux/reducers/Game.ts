@@ -106,6 +106,12 @@ const gameReducer = (state = initialState, action: gameActionTypes) => {
         gold: state.gold - action.payload,
       };
 
+    case GAME_CONSTANTS.GOLD.ADD:
+      return {
+        ...state,
+        gold: state.gold + action.payload,
+      };
+
     case GAME_CONSTANTS.FOOD.DEPLETE:
       return {
         ...state,
