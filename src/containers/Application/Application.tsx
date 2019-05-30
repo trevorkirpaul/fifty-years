@@ -12,7 +12,6 @@ import {
 import MainMenu from "containers/MainMenu";
 import ScoreBoard from "containers/ScoreBoard";
 
-import ActionsMenu from "../ActionsMenu";
 import BuildModal from "../BuildModal";
 import Land from "../Land";
 
@@ -74,30 +73,6 @@ class Application extends React.Component<AppProps, AppState> {
     return this.setState({ buildModalOpen: false });
   }
 
-  /**
-   * This method comes from the Application container
-   * and will handle all of the logic when building
-   * or expanding on an empty Tile.
-   *
-   * @options is an object which contains:
-   *
-   * `tileId`: string represeting the Tile being worked on
-   *
-   * `action`: string representing how we are working/interacting
-   * with the Tile. This can be "build" for example
-   *
-   * `buildingType`: optional string which is used when the `action`
-   * is equal to "build" and will determine which type of building
-   * replaces the empty Tile
-   */
-  public handleBuild = (options: {
-    tileId: string;
-    action: string;
-    buildingType: string;
-  }) => {
-    return null;
-  }
-
   public render() {
     const { buildModalOpen, currentTileId } = this.state;
     const {
@@ -111,20 +86,18 @@ class Application extends React.Component<AppProps, AppState> {
     }
 
     return (
-      <Wrapper>
+      <React.Fragment>
         <BuildModal
           currentTileId={currentTileId}
           buildModalOpen={buildModalOpen}
           closeModal={this.handleCloseBuildModal}
-          handleBuild={this.handleBuild}
         />
+        <Wrapper>
+          <Land handleOpenBuildModal={this.handleOpenBuildModal} />
 
-        <ScoreBoard />
-
-        <ActionsMenu />
-
-        <Land handleOpenBuildModal={this.handleOpenBuildModal} />
-      </Wrapper>
+          <ScoreBoard />
+        </Wrapper>
+      </React.Fragment>
     );
   }
 }

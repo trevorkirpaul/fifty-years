@@ -1,55 +1,68 @@
+import * as R from "ramda";
 import React from "react";
 import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 
+import * as GameActions from "@redux/actions/Game";
+import * as TileActions from "@redux/actions/Tile";
 import { storeState } from "@redux/reducers";
 import { gameReducerTypes } from "@redux/reducers/Game";
 
+import { TILE_TYPES } from "@redux/constants/Tile";
 import { game as gameSelector } from "@redux/selectors";
 import Button from "components/Button";
-import Modal from "components/Modal";
+import { SubHeading } from "components/Heading";
+import Modal from "components/Modal/_Modal";
 import Select from "components/Select";
+import Text from "components/Text";
 
-import { filterOptionsBasedOnCost } from "./helpers";
-import { Wrapper } from "./styles";
+import { filterOptionsBasedOnCost, renderCalculatedResource } from "./helpers";
+import * as S from "./styles";
 
 const options = [
   {
-    value: "barracks",
+    value: TILE_TYPES.BARRACKS,
     label: "barracks",
     goldCost: 50,
-    foodCost: 0,
-    woodCost: 0,
+    foodCost: 25,
+    woodCost: 25,
   },
   {
-    value: "house",
+    value: TILE_TYPES.HOUSE,
     label: "house",
     goldCost: 50,
-    foodCost: 0,
-    woodCost: 0,
+    foodCost: 25,
+    woodCost: 25,
   },
   {
-    value: "field",
+    value: TILE_TYPES.FIELD,
     label: "field",
     goldCost: 50,
     foodCost: 0,
-    woodCost: 0,
+    woodCost: 25,
   },
 ];
 
 export interface BuildModalProps {
   buildModalOpen: boolean;
   closeModal: () => any;
-  handleBuild: (options: {
-    tileId: string;
-    action: string;
-    buildingType: string;
-  }) => any;
 
   /**
    * from redux
    */
   data: {
     game: gameReducerTypes;
+  };
+  actions: {
+    tile: {
+      build: ({ type, id }: { type: string; id: string }) => any;
+    };
+    game: {
+      addGold: (payload: number) => any;
+      removeGold: (payload: number) => any;
+      removeWood: (payload: number) => any;
+      removeFood: (payload: number) => any;
+    };
   };
   /**
    * `currentTileId` is the Tile from
@@ -61,6 +74,7 @@ export interface BuildModalProps {
 
 export interface BuildModalState {
   selectedOption: any;
+  showResourcesAfterBuying: boolean;
 }
 
 class BuildModal extends React.Component<BuildModalProps, BuildModalState> {
@@ -69,30 +83,46 @@ class BuildModal extends React.Component<BuildModalProps, BuildModalState> {
 
     this.state = {
       selectedOption: null,
+      showResourcesAfterBuying: false,
     };
   }
+
+  public toggleShowResourcesAfterBuying = () =>
+    this.setState((prev) => ({
+      showResourcesAfterBuying: !prev.showResourcesAfterBuying,
+    }))
 
   public handleOnChangeSelect = (option: { value: string; label: string }) => {
     return this.setState({ selectedOption: option });
   }
 
   public startBuild = () => {
+    const {
+      actions: {
+        tile: { build },
+        game: { removeGold, removeFood, removeWood },
+      },
+    } = this.props;
+
     if (!this.state.selectedOption) {
       return null;
     }
 
-    /**
-     * send build options to Application
-     * and clear selected building type
-     */
-
-    this.props.handleBuild({
-      tileId: this.props.currentTileId,
-      buildingType: this.state.selectedOption.value,
-      action: "build",
+    // dispatch actions to build the tile, updating
+    // the Tile reducer. We'll also dispatch actions
+    // to deplete the necessary resources
+    build({
+      type: this.state.selectedOption.value,
+      id: this.props.currentTileId,
     });
 
-    return this.setState({ selectedOption: "" });
+    removeGold(this.state.selectedOption.goldCost);
+    removeWood(this.state.selectedOption.woodCost);
+    removeFood(this.state.selectedOption.foodCost);
+
+    // reset selection and close modal
+    this.setState({ selectedOption: "" });
+    return this.props.closeModal();
   }
 
   public render() {
@@ -103,7 +133,7 @@ class BuildModal extends React.Component<BuildModalProps, BuildModalState> {
         game: { gold, food, wood },
       },
     } = this.props;
-    const { selectedOption } = this.state;
+    const { selectedOption, showResourcesAfterBuying } = this.state;
 
     /**
      * Using `filterOptionsBasedOnCost` to determine
@@ -117,34 +147,128 @@ class BuildModal extends React.Component<BuildModalProps, BuildModalState> {
     });
 
     return (
-      <Modal modalIsOpen={buildModalOpen}>
-        <Wrapper>
-          <h1>Build</h1>
-          <p>This is a modal used when buillding on an empty tile</p>
-          <p>gold: {gold}</p>
+      <Modal isOpen={buildModalOpen} onClose={() => {}}>
+        <S.BuildModal>
+          <S.TitleSection>
+            <S.Heading>Build</S.Heading>
+
+            <Text>
+              Select the type of building which will be constructed on this
+              empty land.
+            </Text>
+          </S.TitleSection>
+
+          {/* <p>gold: {gold}</p>
           <p>food: {food}</p>
-          <p>wood: {wood}</p>
+          <p>wood: {wood}</p> */}
 
-          <Select
-            options={optionsPlayerCanAfford}
-            value={selectedOption}
-            onChange={this.handleOnChangeSelect}
-          />
+          <S.SelectionWrapper>
+            <Select
+              options={optionsPlayerCanAfford}
+              value={selectedOption}
+              onChange={this.handleOnChangeSelect}
+            />
+          </S.SelectionWrapper>
 
-          <Button onClick={closeModal} disabled={false} loading={false}>
-            Cancel
-          </Button>
+          <S.CurrentSelection>
+            <SubHeading>Cost:</SubHeading>
 
-          <Button
-            onClick={this.startBuild}
-            disabled={
-              optionsPlayerCanAfford.length === 0 || !this.state.selectedOption
-            }
-            loading={false}
-          >
-            Start Building
-          </Button>
-        </Wrapper>
+            <S.Row>
+              <Text>type:</Text>
+
+              <Text>
+                {selectedOption ? selectedOption.label : "nothing selected"}
+              </Text>
+            </S.Row>
+
+            <S.Row>
+              <Text>gold cost:</Text>
+
+              <Text>
+                {selectedOption ? selectedOption.goldCost : "nothing selected"}
+              </Text>
+            </S.Row>
+
+            <S.Row>
+              <Text>food cost:</Text>
+
+              <Text>
+                {selectedOption ? selectedOption.foodCost : "nothing selected"}
+              </Text>
+            </S.Row>
+
+            <S.Row>
+              <Text>wood cost:</Text>
+
+              <Text>
+                {selectedOption ? selectedOption.woodCost : "nothing selected"}
+              </Text>
+            </S.Row>
+          </S.CurrentSelection>
+
+          <S.CurrentSelection>
+            <SubHeading>
+              {showResourcesAfterBuying
+                ? "Your Resources (after building):"
+                : "Your Resources:"}
+            </SubHeading>
+
+            <S.Row>
+              <Text>Gold:</Text>
+              <Text>
+                {renderCalculatedResource(
+                  showResourcesAfterBuying,
+                  gold,
+                  R.path(["goldCost"], selectedOption),
+                )}
+              </Text>
+            </S.Row>
+
+            <S.Row>
+              <Text>Food:</Text>
+              <Text>
+                {renderCalculatedResource(
+                  showResourcesAfterBuying,
+                  food,
+                  R.path(["foodCost"], selectedOption),
+                )}
+              </Text>
+            </S.Row>
+
+            <S.Row>
+              <Text>Wood:</Text>
+              <Text>
+                {renderCalculatedResource(
+                  showResourcesAfterBuying,
+                  wood,
+                  R.path(["woodCost"], selectedOption),
+                )}
+              </Text>
+            </S.Row>
+          </S.CurrentSelection>
+
+          <S.ActionSection>
+            <Button onClick={this.toggleShowResourcesAfterBuying}>
+              {showResourcesAfterBuying
+                ? "Show Resources Before Building"
+                : "Show Resources After Building"}
+            </Button>
+            <Button onClick={closeModal} disabled={false} loading={false}>
+              Cancel
+            </Button>
+
+            <Button
+              onClick={this.startBuild}
+              disabled={
+                optionsPlayerCanAfford.length === 0 ||
+                !this.state.selectedOption
+              }
+              loading={false}
+            >
+              Start Building
+            </Button>
+          </S.ActionSection>
+        </S.BuildModal>
       </Modal>
     );
   }
@@ -156,4 +280,14 @@ const mapState = (state: storeState) => ({
   },
 });
 
-export default connect(mapState)(BuildModal);
+const mapDispatch = (dispatch: any) => ({
+  actions: {
+    tile: bindActionCreators(TileActions, dispatch),
+    game: bindActionCreators(GameActions, dispatch),
+  },
+});
+
+export default connect(
+  mapState,
+  mapDispatch,
+)(BuildModal);

@@ -15,10 +15,20 @@ const GOLD = {
   DEPLETE: `@@${NAME}/GOLD/DEPLETE`,
 };
 
+const WOOD = {
+  ADD: `@@${NAME}/WOOD/ADD`,
+  DEPLETE: `@@${NAME}/WOOD/DEPLETE`,
+};
+
+const FOOD = {
+  ADD: `@@${NAME}/FOOD/ADD`,
+  DEPLETE: `@@${NAME}/FOOD/DEPLETE`,
+};
+
 /**
  * **ADVANCE_TO_NEXT_YEAR** adds a year
  * to the Game reducer's `currentYear` value
  */
 const ADVANCE_TO_NEXT_YEAR = `@@${NAME}/ADVANCE_TO_NEXT_YEAR`;
 
-export { NAME, GOLD, ADVANCE_TO_NEXT_YEAR };
+export { NAME, GOLD, ADVANCE_TO_NEXT_YEAR, FOOD, WOOD };

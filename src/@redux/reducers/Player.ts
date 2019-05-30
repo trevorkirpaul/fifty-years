@@ -6,8 +6,8 @@ export interface playerReducerTypes {
 }
 
 const initialState: playerReducerTypes = {
-  playerName: "Trevor",
-  playerId: "fsdfsdf",
+  playerName: "",
+  playerId: "",
 };
 
 const PlayerReducer = (state = initialState, action: any) => {

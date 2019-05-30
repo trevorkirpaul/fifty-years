@@ -100,6 +100,36 @@ const gameReducer = (state = initialState, action: gameActionTypes) => {
         currentYear: state.currentYear + 1,
       };
 
+    case GAME_CONSTANTS.GOLD.DEPLETE:
+      return {
+        ...state,
+        gold: state.gold - action.payload,
+      };
+
+    case GAME_CONSTANTS.GOLD.ADD:
+      return {
+        ...state,
+        gold: state.gold + action.payload,
+      };
+
+    case GAME_CONSTANTS.FOOD.DEPLETE:
+      return {
+        ...state,
+        food: state.food - action.payload,
+      };
+
+    case GAME_CONSTANTS.FOOD.ADD:
+      return {
+        ...state,
+        food: state.food + action.payload,
+      };
+
+    case GAME_CONSTANTS.WOOD.DEPLETE:
+      return {
+        ...state,
+        wood: state.wood - action.payload,
+      };
+
     default:
       return state;
   }

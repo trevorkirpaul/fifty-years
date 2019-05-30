@@ -34,7 +34,7 @@ export interface SelectProps {
 const Select = ({ options, onChange, value }: SelectProps) => {
   return (
     <ReactSelect
-      hideSelectedOptions
+      hideSelectedOptions={false}
       options={options}
       onChange={onChange}
       value={value}

@@ -5,6 +5,7 @@
   "dependencies": {
     "@types/jest": "^23.3.13",
     "@types/node": "^10.12.21",
+    "@types/ramda": "^0.26.8",
     "@types/react": "^16.8.1",
     "@types/react-dom": "^16.0.11",
     "@types/react-modal": "^3.8.0",
@@ -12,8 +13,10 @@
     "@types/react-select": "^2.0.11",
     "@types/styled-components": "^4.1.15",
     "@types/uuid": "^3.4.4",
+    "ramda": "^0.26.1",
     "react": "^16.8.1",
     "react-dom": "^16.7.0",
+    "react-feather": "^1.1.6",
     "react-modal": "^3.8.1",
     "react-redux": "^7.1.0-alpha.5",
     "react-scripts": "3.0.0",

@@ -39,4 +39,22 @@ const filterOptionsBasedOnCost = ({
   });
 };
 
-export { filterOptionsBasedOnCost };
+/**
+ * **renderCalculatedResource** is a function which
+ * helps us render the given resource with or without
+ * the price of the building
+ *
+ * When `showResourcesAfterBuying` is true, we'll
+ * show the `resource` with the `cost` reduced
+ *
+ * @param showResourcesAfterBuying
+ * @param resource
+ * @param cost
+ */
+const renderCalculatedResource = (
+  showResourcesAfterBuying: boolean,
+  resource: number,
+  cost: number = 0,
+) => (showResourcesAfterBuying ? resource - cost : resource);
+
+export { filterOptionsBasedOnCost, renderCalculatedResource };

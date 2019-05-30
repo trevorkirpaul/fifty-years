@@ -10,7 +10,9 @@ import {
   player as playerSelector,
 } from "@redux/selectors";
 
-import { BoldText, Section, Text, Wrapper } from "./styles";
+import ActionsMenu from "../ActionsMenu";
+
+import * as S from "./styles";
 
 export interface ScoreBoardProps {
   data: {
@@ -26,45 +28,55 @@ class ScoreBoard extends React.Component<ScoreBoardProps, ScoreBoardState> {
     const {
       data: {
         player: { playerName },
-        game: { currentYear, gold, food, houses, barracks, fields },
+        game: { currentYear, gold, food, wood, houses, barracks, fields },
       },
     } = this.props;
 
     return (
-      <Wrapper>
-        <Section>
-          <BoldText>Player:</BoldText>
-          <Text>{playerName}</Text>
-        </Section>
-        <Section>
-          <BoldText>Current Year:</BoldText>
-          <Text>{currentYear}</Text>
-        </Section>
-        <Section>
-          <BoldText>Gold:</BoldText>
-          <Text>{gold}</Text>
-        </Section>
-        <Section>
-          <BoldText>Food:</BoldText>
-          <Text>{food}</Text>
-        </Section>
-        <Section>
-          <Section col>
-            <Text padBottom>Houses</Text>
-            <Text>{houses}</Text>
-          </Section>
+      <S.Bottom>
+        <ActionsMenu />
+        <S.ScoreBoard>
+          <S.Left>
+            <S.Row>
+              <S.BoldText>Player:</S.BoldText>
+              <S.Text>{playerName}</S.Text>
+            </S.Row>
 
-          <Section col>
-            <Text padBottom>Barracks</Text>
-            <Text>{barracks}</Text>
-          </Section>
+            <S.Row>
+              <S.BoldText>Wood:</S.BoldText>
+              <S.Text>{wood}</S.Text>
+            </S.Row>
+            <S.Row>
+              <S.BoldText>Gold:</S.BoldText>
+              <S.Text>{gold}</S.Text>
+            </S.Row>
+            <S.Row>
+              <S.BoldText>Food:</S.BoldText>
+              <S.Text>{food}</S.Text>
+            </S.Row>
+          </S.Left>
 
-          <Section col>
-            <Text padBottom>Fields</Text>
-            <Text>{fields}</Text>
-          </Section>
-        </Section>
-      </Wrapper>
+          <S.Right>
+            <S.Row>
+              <S.BoldText>Current Year:</S.BoldText>
+              <S.Text>{currentYear}</S.Text>
+            </S.Row>
+
+            <S.Row>
+              <S.BoldText>Houses:</S.BoldText>
+              <S.Text>{houses}</S.Text>
+            </S.Row>
+            <S.Row>
+              <S.BoldText>Barracks:</S.BoldText>
+              <S.Text>{barracks}</S.Text>
+            </S.Row>
+            <S.Row>
+              <S.BoldText>Fields:</S.BoldText>
+              <S.Text>{fields}</S.Text>
+            </S.Row>
+          </S.Right>
+        </S.ScoreBoard>
+      </S.Bottom>
     );
   }
 }
