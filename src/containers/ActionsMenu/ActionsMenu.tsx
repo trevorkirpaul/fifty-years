@@ -7,6 +7,7 @@ import { storeState } from "@redux/reducers";
 
 import Button from "components/Button";
 
+import ActionsModal from "./components/ActionsModal";
 import RandomEventModal from "./components/RandomEventModal";
 
 import * as S from "./styles";
@@ -25,7 +26,12 @@ const ActionMenu = (props: ActionMenuProps) => {
   const [randomEventModalIsOpen, toggleRandomEventModalIsOpen] = React.useState(
     false,
   );
+  const [actionsModalIsOpen, toggleActionsModalIsOpen] = React.useState(false);
   const [eventTypeForModal, setEventTypeForModal] = React.useState("");
+
+  const handleCloseModal = () => {
+    return toggleActionsModalIsOpen(false);
+  };
 
   /**
    * **advanceYear** handles all logic that should happen
@@ -102,8 +108,16 @@ const ActionMenu = (props: ActionMenuProps) => {
         toggleRandomEventModalIsOpen={toggleRandomEventModalIsOpen}
         eventType={eventTypeForModal}
       />
+
+      <ActionsModal
+        isOpen={actionsModalIsOpen}
+        handleCloseModal={handleCloseModal}
+      />
+
       <S.ActionMenu>
         <Button onClick={() => {}}>options</Button>
+
+        <Button onClick={() => toggleActionsModalIsOpen(true)}>Actions</Button>
 
         <Button onClick={() => advanceYear()}>
           Advance to year {currentYear + 1}
